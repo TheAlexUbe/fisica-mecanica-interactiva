@@ -1,19 +1,22 @@
 # 🔬 Física & Mecánica Interactiva
 
-Una plataforma web interactiva, moderna y didáctica para aprender física clásica, termodinámica y principios aeronáuticos mediante simulaciones interactivas en tiempo real renderizadas a 60 FPS con HTML5 Canvas y Tailwind CSS.
+Una plataforma web interactiva, moderna y didáctica para aprender física clásica, termodinámica, mecánica de fluidos y principios aeronáuticos mediante simulaciones interactivas en tiempo real renderizadas a 60 FPS con HTML5 Canvas y Tailwind CSS.
 
 ---
 
 ## 🚀 Temas y Simulaciones Incluidas
 
 ### 1. ⚙️ Motor a Pistón de 4 Tiempos (Ciclo Otto)
-- **Cinemática completa del mecanismo biela-manivela** a partir de ecuaciones trigonométricas precisas.
-- Visualización detallada de los 4 tiempos del ciclo termodinámico (720° de giro del cigüeñal):
-  1. **Admisión (0° - 180°):** Apertura sincronizada de la válvula de admisión, descenso del pistón del PMS al PMI y aspiración de la mezcla fresca.
-  2. **Compresión (180° - 360°):** Cierre hermético de válvulas, ascenso del pistón y aumento adiabático de presión y temperatura.
-  3. **Explosión / Combustión (360° - 540°):** Chispa de alta tensión en la bujía, deflagración de la mezcla con efecto de destello y partículas incandescentes, y descenso forzado del pistón (¡único tiempo que produce trabajo útil motriz!).
-  4. **Escape (540° - 720°):** Apertura de la válvula de escape y evacuación de los gases residuales.
-- **Interactividad:** Control de RPM (velocidad lenta/rápida), avance paso a paso (+15°), scrubber manual de 0° a 720°, y detección interactiva por puntero (hover) con fichas técnicas para cada componente (Bujía, Válvulas, Cilindro, Pistón, Biela, Cigüeñal y Contrapesos).
+- **Cinemática completa del mecanismo biela-manivela y árbol de levas superior**:
+  - Pistón forjado con 3 aros de compresión/aceite, bulón con buje de bronce y falda estilizada.
+  - Válvulas con resortes helicoidales accionadas por levas excéntricas a relación 1:2.
+  - Inyección de combustible atomizado y deflagración con partículas y chispas.
+- **Los 4 tiempos del ciclo (720° de giro del cigüeñal)**:
+  1. **Admisión (0° - 180°):** Apertura sincronizada de la válvula de admisión, descenso de PMS a PMI y aspiración de la mezcla.
+  2. **Compresión (180° - 360°):** Cierre hermético de válvulas, ascenso del pistón y aumento de presión y temperatura.
+  3. **Explosión / Combustión (360° - 540°):** Chispa de alta tensión en la bujía, deflagración de la mezcla y descenso forzado del pistón (¡único tiempo que genera trabajo motriz!).
+  4. **Escape (540° - 720°):** Apertura de la válvula de escape y evacuación de gases quemados.
+- **Interactividad Estable (Zero Jitter):** Control de RPM, avance paso a paso (+15°), scrubber manual de 0° a 720°, y detección interactiva por puntero (hover) con fichas técnicas.
 
 ### 2. 🚛 Inercia y Marcos de Referencia (El Salto en el Tráiler)
 - Explicación y resolución del dilema clásico: *¿Qué ocurre si saltas dentro de un camión que viaja a 100 km/h?*
@@ -49,8 +52,14 @@ Una plataforma web interactiva, moderna y didáctica para aprender física clás
   - Sistema de Alerta de Proximidad al Terreno (**GPWS**) con advertencia acústica/visual `"PULL UP! TERRAIN AHEAD!"` cuando la altura AGL es inferior al umbral de seguridad.
   - Modo piloto automático y presets de aproximación.
 
-### 5. 🎯 Cuestionario Interactivo
-- Test rápido de autoevaluación para consolidar los conocimientos adquiridos en cada sección.
+### 5. 💧 Flujo Laminar vs. Flujo Turbulento
+- Dinámica del Número de Reynolds ($Re = \frac{\rho v D}{\mu}$):
+  - **Régimen Laminar ($Re < 2,300$):** Capas de fluido deslizándose en láminas paralelas suaves sin mezclarse.
+  - **Régimen Turbulento ($Re > 4,000$):** Inestabilidades, vórtices alternantes de Von Kármán y mezcla caótica.
+- **Simulador Interactivo:**
+  - **Modo Túnel Hidrodinámico:** Flujo alrededor de un cilindro con inyección de tinte de colores y formación de estela de vórtices.
+  - **Modo Chorro Laminar:** Efecto de "Agua Congelada" donde el chorro parece una vara sólida de cristal hasta que se perturba con el dedo.
+  - Selector de fluidos reales (Agua, Aceite, Glicerina ultra viscosa, Aire).
 
 ---
 

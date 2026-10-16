@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Física y Mecánica Interactiva | Motores, Inercia y Presión</title>
+  <title>Física & Mecánica Interactiva</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -43,6 +43,9 @@
     .font-mono {
       font-family: 'JetBrains Mono', monospace;
     }
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
     /* Custom subtle glassmorphism */
     .glass-card {
       background: rgba(30, 41, 59, 0.7);
@@ -72,15 +75,6 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #475569;
     }
-    /* Pulse glow keyframes */
-    @keyframes sparkFlash {
-      0% { opacity: 0; transform: scale(0.8); }
-      50% { opacity: 1; transform: scale(1.2); }
-      100% { opacity: 0; transform: scale(1); }
-    }
-    .spark-animation {
-      animation: sparkFlash 0.15s ease-out;
-    }
     @keyframes alertPulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.3; }
@@ -105,27 +99,30 @@
           </div>
           <div>
             <span class="text-lg font-bold bg-gradient-to-r from-white via-slate-200 to-cyan-400 bg-clip-text text-transparent">
-              Física & Mecánica
+              Física Interactiva
             </span>
             <span class="block text-[10px] tracking-wider uppercase text-cyan-400 font-semibold">
-              Simulador Interactivo
+              Simuladores Visuales
             </span>
           </div>
         </a>
 
         <!-- Desktop Navigation Links -->
-        <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
-          <a href="#motor-4-tiempos" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/70 transition-colors flex items-center gap-1.5">
+        <nav class="hidden lg:flex items-center space-x-1">
+          <a href="#motor-4-tiempos" class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/70 transition-colors flex items-center gap-1.5">
             <span class="w-2 h-2 rounded-full bg-orange-400"></span> Motor 4T
           </a>
-          <a href="#inercia-trailer" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/70 transition-colors flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-cyan-400"></span> Inercia en Tráiler
+          <a href="#inercia-trailer" class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/70 transition-colors flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-cyan-400"></span> Inercia
           </a>
-          <a href="#presion-comparada" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/70 transition-colors flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-blue-500"></span> Presión: Aire vs Agua
+          <a href="#presion-comparada" class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/70 transition-colors flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-blue-500"></span> Presión
           </a>
-          <a href="#altura-vs-altitud" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/70 transition-colors flex items-center gap-1.5">
+          <a href="#altura-vs-altitud" class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/70 transition-colors flex items-center gap-1.5">
             <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Altura vs Altitud
+          </a>
+          <a href="#flujo-laminar" class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/70 transition-colors flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-teal-400"></span> Flujo Laminar
           </a>
         </nav>
 
@@ -133,9 +130,9 @@
         <div class="flex items-center gap-2">
           <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-            HTML5 + Canvas 60 FPS
+            Canvas 60 FPS
           </span>
-          <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white">
+          <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
             </svg>
@@ -144,75 +141,81 @@
       </div>
     </div>
     <!-- Mobile dropdown menu -->
-    <div id="mobileMenu" class="hidden md:hidden px-4 pt-2 pb-4 space-y-1 bg-slate-900 border-b border-slate-800">
-      <a href="#motor-4-tiempos" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-800">1. Motor a Pistón (4 Tiempos)</a>
-      <a href="#inercia-trailer" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-800">2. Inercia & Salto en Tráiler</a>
-      <a href="#presion-comparada" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-800">3. Presión: Aire vs Agua</a>
-      <a href="#altura-vs-altitud" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-800">4. Altura vs Altitud (AGL / MSL)</a>
+    <div id="mobileMenu" class="hidden lg:hidden px-4 pt-2 pb-4 space-y-1 bg-slate-900 border-b border-slate-800 text-sm">
+      <a href="#motor-4-tiempos" class="block px-3 py-2 rounded-md font-medium text-slate-300 hover:bg-slate-800">1. Motor a Pistón (4 Tiempos)</a>
+      <a href="#inercia-trailer" class="block px-3 py-2 rounded-md font-medium text-slate-300 hover:bg-slate-800">2. Inercia & Salto en Tráiler</a>
+      <a href="#presion-comparada" class="block px-3 py-2 rounded-md font-medium text-slate-300 hover:bg-slate-800">3. Presión: Aire vs Agua</a>
+      <a href="#altura-vs-altitud" class="block px-3 py-2 rounded-md font-medium text-slate-300 hover:bg-slate-800">4. Altura vs Altitud (AGL / MSL)</a>
+      <a href="#flujo-laminar" class="block px-3 py-2 rounded-md font-medium text-slate-300 hover:bg-slate-800">5. Flujo Laminar vs Turbulento</a>
     </div>
   </header>
 
   <!-- ================= HERO INTRO SECTION ================= -->
-  <section id="hero" class="relative overflow-hidden py-16 lg:py-24 border-b border-slate-800/60 bg-gradient-to-b from-slate-900/60 via-slate-950 to-slate-950">
+  <section id="hero" class="relative overflow-hidden py-14 lg:py-20 border-b border-slate-800/60 bg-gradient-to-b from-slate-900/60 via-slate-950 to-slate-950">
     <div class="absolute -top-40 -right-40 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
     <div class="absolute top-20 -left-40 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
     
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
       <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800/90 border border-slate-700 text-xs font-semibold text-cyan-400 mb-6 shadow-inner">
-        <span>🔬 Guía Visual de Ciencias de la Tierra y Mecánica</span>
+        <span>🔬 Guía Interactiva de Física, Mecánica y Fluidos</span>
       </div>
-      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-        Entiende la física que mueve <br class="hidden sm:inline"/>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-5 leading-tight">
+        Explora la ciencia y la mecánica <br class="hidden sm:inline"/>
         <span class="bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent">
-          nuestro mundo cotidiano
+          en simulaciones en tiempo real
         </span>
       </h1>
-      <p class="max-w-3xl mx-auto text-lg sm:text-xl text-slate-400 mb-10 leading-relaxed font-light">
-        Cuatro fenómenos esenciales explicados con simulaciones interactivas en tiempo real: desde el corazón térmico de un motor de combustión hasta las leyes de inercia y los abismos de presión de nuestro planeta.
+      <p class="max-w-3xl mx-auto text-base sm:text-lg text-slate-400 mb-8 leading-relaxed font-light">
+        Aprende termodinámica, marcos de referencia inerciales, comportamiento de presiones y dinámica de fluidos con modelos matemáticos interactivos y estables.
       </p>
 
       <!-- Quick Section Jump Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto text-left">
-        <a href="#motor-4-tiempos" class="glass-card glass-card-hover p-5 rounded-2xl group border-l-4 border-l-orange-500">
-          <div class="text-2xl mb-2">⚙️</div>
-          <h3 class="font-bold text-white group-hover:text-orange-400 transition-colors">1. Motor a Pistón 4T</h3>
-          <p class="text-xs text-slate-400 mt-1">Admisión, Compresión, Explosión y Escape paso a paso con motor animado.</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 max-w-6xl mx-auto text-left">
+        <a href="#motor-4-tiempos" class="glass-card glass-card-hover p-4 rounded-xl group border-l-4 border-l-orange-500">
+          <div class="text-xl mb-1">⚙️</div>
+          <h3 class="font-bold text-white text-xs sm:text-sm group-hover:text-orange-400 transition-colors">1. Motor 4T</h3>
+          <p class="text-[11px] text-slate-400 mt-0.5 leading-snug">Admisión, compresión, explosión y escape.</p>
         </a>
-        <a href="#inercia-trailer" class="glass-card glass-card-hover p-5 rounded-2xl group border-l-4 border-l-cyan-500">
-          <div class="text-2xl mb-2">🚛</div>
-          <h3 class="font-bold text-white group-hover:text-cyan-400 transition-colors">2. Salto en Tráiler</h3>
-          <p class="text-xs text-slate-400 mt-1">Inercia, marcos de referencia y qué ocurre si saltas a 100 km/h.</p>
+        <a href="#inercia-trailer" class="glass-card glass-card-hover p-4 rounded-xl group border-l-4 border-l-cyan-500">
+          <div class="text-xl mb-1">🚛</div>
+          <h3 class="font-bold text-white text-xs sm:text-sm group-hover:text-cyan-400 transition-colors">2. Salto en Tráiler</h3>
+          <p class="text-[11px] text-slate-400 mt-0.5 leading-snug">Inercia a 100 km/h y marcos de referencia.</p>
         </a>
-        <a href="#presion-comparada" class="glass-card glass-card-hover p-5 rounded-2xl group border-l-4 border-l-blue-500">
-          <div class="text-2xl mb-2">🌊</div>
-          <h3 class="font-bold text-white group-hover:text-blue-400 transition-colors">3. Presión: Aire vs Agua</h3>
-          <p class="text-xs text-slate-400 mt-1">Columna atmosférica vs presión hidrostática (1 atm cada 10 metros).</p>
+        <a href="#presion-comparada" class="glass-card glass-card-hover p-4 rounded-xl group border-l-4 border-l-blue-500">
+          <div class="text-xl mb-1">🌊</div>
+          <h3 class="font-bold text-white text-xs sm:text-sm group-hover:text-blue-400 transition-colors">3. Presión de Fluidos</h3>
+          <p class="text-[11px] text-slate-400 mt-0.5 leading-snug">Aire vs agua (+1 atm cada 10m).</p>
         </a>
-        <a href="#altura-vs-altitud" class="glass-card glass-card-hover p-5 rounded-2xl group border-l-4 border-l-emerald-500">
-          <div class="text-2xl mb-2">✈️</div>
-          <h3 class="font-bold text-white group-hover:text-emerald-400 transition-colors">4. Altura vs Altitud</h3>
-          <p class="text-xs text-slate-400 mt-1">Diferencia crítica en aviación entre AGL (suelo) y MSL (mar).</p>
+        <a href="#altura-vs-altitud" class="glass-card glass-card-hover p-4 rounded-xl group border-l-4 border-l-emerald-500">
+          <div class="text-xl mb-1">✈️</div>
+          <h3 class="font-bold text-white text-xs sm:text-sm group-hover:text-emerald-400 transition-colors">4. Altura vs Altitud</h3>
+          <p class="text-[11px] text-slate-400 mt-0.5 leading-snug">Diferencia entre AGL (suelo) y MSL (mar).</p>
+        </a>
+        <a href="#flujo-laminar" class="glass-card glass-card-hover p-4 rounded-xl group border-l-4 border-l-teal-500 col-span-2 sm:col-span-1">
+          <div class="text-xl mb-1">💧</div>
+          <h3 class="font-bold text-white text-xs sm:text-sm group-hover:text-teal-400 transition-colors">5. Flujo Laminar</h3>
+          <p class="text-[11px] text-slate-400 mt-0.5 leading-snug">Reynolds, agua de cristal y turbulencia.</p>
         </a>
       </div>
     </div>
   </section>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-20">
 
     <!-- ========================================================================= -->
     <!-- 1. MOTOR A PISTÓN DE 4 TIEMPOS (CICLO OTTO) -->
     <!-- ========================================================================= -->
     <section id="motor-4-tiempos" class="scroll-mt-24">
-      <div class="border-b border-slate-800 pb-4 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div class="border-b border-slate-800 pb-4 mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div class="inline-flex items-center gap-2 text-xs font-bold tracking-wider uppercase text-orange-400 mb-1">
-            <span class="w-2 h-2 rounded-full bg-orange-500"></span> Termodinámica y Mecánica
+            <span class="w-2 h-2 rounded-full bg-orange-500"></span> Termodinámica y Mecánica de Precisión
           </div>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
             1. Motor a Pistón de 4 Tiempos (Ciclo Otto)
           </h2>
-          <p class="text-slate-400 mt-2 max-w-2xl text-sm sm:text-base">
-            El motor de combustión interna alternativo convierte la energía química del combustible en movimiento mecánico giratorio a través de cuatro etapas bien definidas.
+          <p class="text-slate-400 mt-1 max-w-2xl text-xs sm:text-sm">
+            Simulación mecánica con cinemática real biela-manivela, árbol de levas y válvulas sincronizadas en un ciclo termodinámico de 720° de rotación.
           </p>
         </div>
         <div class="flex items-center gap-2">
@@ -222,19 +225,20 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
-        <!-- Left: Canvas Simulation & Quick Controls -->
+        <!-- Left: Canvas Simulation & Rigid Zero-Jitter Controls -->
         <div class="lg:col-span-7 space-y-4">
-          <div class="glass-card rounded-2xl p-4 sm:p-6 relative overflow-hidden">
-            <!-- Stroke Badge Overlay -->
-            <div class="flex items-center justify-between mb-4">
+          <div class="glass-card rounded-2xl p-4 sm:p-5 relative overflow-hidden">
+            
+            <!-- Rigid Header (Fixed Widths, NO Jittering) -->
+            <div class="flex items-center justify-between mb-3 h-8">
               <div class="flex items-center gap-2">
-                <span id="strokeBadge" class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide bg-blue-500 text-white shadow-md shadow-blue-500/20">
+                <span id="strokeBadge" class="w-32 py-1 rounded-full text-xs font-bold uppercase tracking-wide bg-blue-500 text-white shadow-md text-center inline-block">
                   1. Admisión
                 </span>
-                <span id="crankAngleDisplay" class="font-mono text-xs text-slate-300 bg-slate-800/90 px-2.5 py-1 rounded-md border border-slate-700">
-                  Cigüeñal: 0.0°
+                <span id="crankAngleDisplay" class="font-mono text-xs text-slate-300 bg-slate-800/90 px-2.5 py-1 rounded-md border border-slate-700 w-36 text-center tabular-nums inline-block">
+                  Cigüeñal: 000°
                 </span>
               </div>
               <div class="flex items-center gap-1.5">
@@ -242,22 +246,22 @@
                   Cámara Lenta
                 </button>
                 <button id="engineResetBtn" class="px-2.5 py-1 text-xs rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
-                  Reiniciar
+                  0° (PMS)
                 </button>
               </div>
             </div>
 
-            <!-- Canvas Container -->
-            <div class="relative w-full aspect-[4/5] sm:aspect-[1/1] max-h-[520px] bg-slate-900/90 rounded-xl border border-slate-800 flex items-center justify-center overflow-hidden">
-              <canvas id="engineCanvas" width="500" height="520" class="w-full h-full object-contain cursor-crosshair"></canvas>
+            <!-- Canvas Container with Exact Fixed Dimensions -->
+            <div class="relative w-full aspect-[1/1] max-h-[500px] bg-slate-900/95 rounded-xl border border-slate-800 flex items-center justify-center overflow-hidden shadow-inner">
+              <canvas id="engineCanvas" width="500" height="500" class="w-full h-full object-contain cursor-crosshair"></canvas>
               
-              <!-- Spark Flash Overlay Element -->
-              <div id="sparkFlashOverlay" class="absolute inset-0 bg-yellow-400/20 pointer-events-none opacity-0 transition-opacity duration-75"></div>
+              <!-- Spark Flash Overlay -->
+              <div id="sparkFlashOverlay" class="absolute inset-0 bg-yellow-300/25 pointer-events-none opacity-0 transition-opacity duration-75"></div>
 
-              <!-- Tooltip overlay on hover/click -->
-              <div id="enginePartTooltip" class="absolute bottom-3 left-3 right-3 sm:right-auto sm:max-w-xs glass-card p-3 rounded-xl text-xs border border-cyan-500/40 hidden pointer-events-none shadow-xl">
-                <div class="font-bold text-cyan-400" id="enginePartName">Componente</div>
-                <div class="text-slate-300 text-[11px] mt-0.5" id="enginePartDesc">Descripción...</div>
+              <!-- Tooltip overlay on hover -->
+              <div id="enginePartTooltip" class="absolute bottom-3 left-3 right-3 sm:right-auto sm:max-w-xs glass-card p-3 rounded-xl text-xs border border-cyan-500/40 hidden pointer-events-none shadow-2xl backdrop-blur-md">
+                <div class="font-bold text-cyan-400 flex items-center gap-1.5" id="enginePartName">Componente</div>
+                <div class="text-slate-300 text-[11px] mt-0.5 leading-snug" id="enginePartDesc">Descripción...</div>
               </div>
             </div>
 
@@ -265,10 +269,7 @@
             <div class="mt-4 pt-4 border-t border-slate-800/80 space-y-3">
               <div class="flex flex-wrap items-center justify-between gap-3">
                 <div class="flex items-center gap-2">
-                  <button id="enginePlayPauseBtn" class="px-4 py-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-slate-950 font-bold text-sm flex items-center gap-2 shadow-lg shadow-orange-500/20 transition-all">
-                    <svg id="enginePlayIcon" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8l6 2-6 2V8z" clip-rule="evenodd"/>
-                    </svg>
+                  <button id="enginePlayPauseBtn" class="w-28 py-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-slate-950 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-orange-500/20 transition-all">
                     <span id="enginePlayText">Pausar</span>
                   </button>
                   <button id="engineStepBtn" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition">
@@ -279,13 +280,13 @@
                 <!-- RPM slider -->
                 <div class="flex items-center gap-2 flex-1 max-w-xs justify-end">
                   <span class="text-xs text-slate-400 font-mono">Velocidad:</span>
-                  <input id="engineSpeedSlider" type="range" min="10" max="250" value="70" class="w-28 sm:w-36 accent-orange-500 bg-slate-800 rounded-lg cursor-pointer">
-                  <span id="engineRpmLabel" class="text-xs font-mono font-bold text-orange-400 w-16 text-right">700 RPM</span>
+                  <input id="engineSpeedSlider" type="range" min="10" max="250" value="70" class="w-24 sm:w-32 accent-orange-500 bg-slate-800 rounded-lg cursor-pointer">
+                  <span id="engineRpmLabel" class="text-xs font-mono font-bold text-orange-400 w-16 text-right tabular-nums">700 RPM</span>
                 </div>
               </div>
 
               <!-- Direct Stage Jump Buttons -->
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2">
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
                 <button class="stage-jump-btn px-2.5 py-2 rounded-lg text-xs font-bold transition border border-blue-500/30 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20" data-deg="0">
                   1. Admisión (0°)
                 </button>
@@ -302,7 +303,7 @@
 
               <!-- Interactive Angle Scrub Slider -->
               <div class="space-y-1 pt-1">
-                <div class="flex justify-between text-[11px] text-slate-400 font-mono">
+                <div class="flex justify-between text-[10px] text-slate-400 font-mono">
                   <span>0° (PMS)</span>
                   <span>180° (PMI)</span>
                   <span>360° (PMS)</span>
@@ -315,69 +316,68 @@
           </div>
         </div>
 
-        <!-- Right: Technical Breakdown of the 4 Strokes & Parts -->
+        <!-- Right: Rigid Height Info Card (ZERO Trembling / Shaking) -->
         <div class="lg:col-span-5 space-y-4">
-          <!-- Active Stage Detailed Card -->
-          <div id="stageInfoCard" class="glass-card rounded-2xl p-6 border-l-4 border-l-blue-500 transition-all">
-            <div class="flex items-center justify-between mb-3">
-              <span id="stageCardStepNumber" class="text-xs font-mono font-bold tracking-widest uppercase text-blue-400">ETAPA 1 DE 4</span>
-              <span id="stageCardAngleSpan" class="text-xs font-mono text-slate-400">0° a 180° del cigüeñal</span>
+          <!-- Active Stage Detailed Card with STRICT MIN-HEIGHT -->
+          <div id="stageInfoCard" class="glass-card rounded-2xl p-5 border-l-4 border-l-blue-500 transition-colors min-h-[300px] flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span id="stageCardStepNumber" class="text-[11px] font-mono font-bold tracking-widest uppercase text-blue-400">ETAPA 1 DE 4</span>
+                <span id="stageCardAngleSpan" class="text-[11px] font-mono text-slate-400">0° a 180° del cigüeñal</span>
+              </div>
+              <h3 id="stageCardTitle" class="text-xl font-bold text-white mb-2 min-h-[1.75rem]">Admisión: Llenado del Cilindro</h3>
+              <p id="stageCardDescription" class="text-slate-300 text-xs sm:text-sm leading-relaxed min-h-[4.5rem]">
+                El pistón desciende desde el Punto Muerto Superior (PMS) hasta el Punto Muerto Inferior (PMI). La válvula de admisión se abre empujada por el árbol de levas, creando un vacío relativo que succiona la mezcla de aire atomizado y gasolina hacia la cámara.
+              </p>
             </div>
-            <h3 id="stageCardTitle" class="text-2xl font-bold text-white mb-2">Admisión: Llenado del Cilindro</h3>
-            <p id="stageCardDescription" class="text-slate-300 text-sm leading-relaxed mb-4">
-              El pistón desciende desde el Punto Muerto Superior (PMS) hasta el Punto Muerto Inferior (PMI). La válvula de admisión se abre, creando una depresión (vacío parcial) que aspira la mezcla fresca de aire y gasolina (o solo aire en motores diésel/inyección directa).
-            </p>
             
-            <div class="grid grid-cols-2 gap-3 text-xs font-mono bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+            <div class="grid grid-cols-2 gap-2 text-xs font-mono bg-slate-900/80 p-3 rounded-xl border border-slate-800 mt-3">
               <div>
                 <span class="text-slate-500 block text-[10px] uppercase">Válvula Admisión</span>
-                <span id="valvulaAdmisionStatus" class="font-bold text-emerald-400">ABIERTA</span>
+                <span id="valvulaAdmisionStatus" class="font-bold text-emerald-400 text-[11px]">ABIERTA</span>
               </div>
               <div>
                 <span class="text-slate-500 block text-[10px] uppercase">Válvula Escape</span>
-                <span id="valvulaEscapeStatus" class="font-bold text-rose-400">CERRADA</span>
+                <span id="valvulaEscapeStatus" class="font-bold text-rose-400 text-[11px]">CERRADA</span>
               </div>
               <div>
                 <span class="text-slate-500 block text-[10px] uppercase">Movimiento Pistón</span>
-                <span id="pistonMotionStatus" class="font-bold text-white">Desciende (PMS &rarr; PMI)</span>
+                <span id="pistonMotionStatus" class="font-bold text-white text-[11px]">Baja (PMS &rarr; PMI)</span>
               </div>
               <div>
                 <span class="text-slate-500 block text-[10px] uppercase">Presión en Cámara</span>
-                <span id="chamberPressureStatus" class="font-bold text-cyan-300">Baja (~0.8 bar vacío)</span>
+                <span id="chamberPressureStatus" class="font-bold text-cyan-300 text-[11px]">Depresión (~0.8 bar)</span>
               </div>
             </div>
           </div>
 
           <!-- Parts of the Engine Explorer -->
-          <div class="glass-card rounded-2xl p-6">
-            <h4 class="text-base font-bold text-white mb-3 flex items-center gap-2">
-              <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="glass-card rounded-2xl p-5">
+            <h4 class="text-sm font-bold text-white mb-2.5 flex items-center gap-2">
+              <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
               </svg>
-              Partes Clave del Motor
+              Anatomía Mecánica Principal
             </h4>
-            <div class="space-y-2.5 text-xs text-slate-300">
-              <div class="p-2.5 rounded-xl bg-slate-900/50 border border-slate-800/80 hover:border-slate-700 transition">
-                <span class="font-bold text-white text-sm">Pistón:</span> Pieza móvil cilíndrica de aleación ligera que recibe la fuerza de la explosión y la transmite a la biela.
+            <div class="space-y-2 text-xs text-slate-300">
+              <div class="p-2 rounded-lg bg-slate-900/60 border border-slate-800/80">
+                <span class="font-bold text-white">Pistón con 3 Aros:</span> Émbolo forjado con dos aros de compresión y un aro rascador de aceite.
               </div>
-              <div class="p-2.5 rounded-xl bg-slate-900/50 border border-slate-800/80 hover:border-slate-700 transition">
-                <span class="font-bold text-white text-sm">Biela:</span> El eslabón articulado que transforma el movimiento lineal alternativo del pistón en el giro rotatorio del cigüeñal.
+              <div class="p-2 rounded-lg bg-slate-900/60 border border-slate-800/80">
+                <span class="font-bold text-white">Biela en 'H':</span> Eslabón estructural que transmite la fuerza del bulón hacia el cigüeñal.
               </div>
-              <div class="p-2.5 rounded-xl bg-slate-900/50 border border-slate-800/80 hover:border-slate-700 transition">
-                <span class="font-bold text-white text-sm">Cigüeñal:</span> Eje acodado con contrapesos que equilibra las fuerzas y entrega el par motor a la transmisión y ruedas.
+              <div class="p-2 rounded-lg bg-slate-900/60 border border-slate-800/80">
+                <span class="font-bold text-white">Cigüeñal y Contrapesos:</span> Eje de rotación que equilibra las fuerzas alternas con contrapesos.
               </div>
-              <div class="p-2.5 rounded-xl bg-slate-900/50 border border-slate-800/80 hover:border-slate-700 transition">
-                <span class="font-bold text-white text-sm">Bujía:</span> Genera una chispa de más de 20,000 voltios en el instante preciso de máxima compresión para detonar la mezcla.
-              </div>
-              <div class="p-2.5 rounded-xl bg-slate-900/50 border border-slate-800/80 hover:border-slate-700 transition">
-                <span class="font-bold text-white text-sm">Válvulas (Admisión/Escape):</span> Sellan herméticamente la cámara durante compresión y explosión, abriéndose sincronizadas por el árbol de levas.
+              <div class="p-2 rounded-lg bg-slate-900/60 border border-slate-800/80">
+                <span class="font-bold text-white">Árbol de Levas y Válvulas:</span> Abre y cierra los conductos girando a exactamente la mitad de velocidad (1:2).
               </div>
             </div>
 
             <!-- Didactic Callout: Only 1 stroke produces work -->
-            <div class="mt-4 p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-300/90 leading-relaxed">
-              <strong>💡 Dato Curioso:</strong> De los 4 tiempos, <span class="text-amber-200 underline font-semibold">solo la Explosión (Tiempo 3) genera energía útil</span>. Los otros tres tiempos consumen energía por inercia del volante de inercia y del cigüeñal para preparar el siguiente ciclo.
+            <div class="mt-3 p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-300/90 leading-relaxed">
+              <strong>💡 Dato Clave:</strong> De los 4 tiempos, <span class="text-amber-200 underline font-semibold">solo la Explosión (Tiempo 3) genera trabajo motriz</span>. Los otros tres tiempos son arrastrados por la inercia del volante.
             </div>
           </div>
         </div>
@@ -389,32 +389,32 @@
     <!-- 2. INERCIA Y MARCOS DE REFERENCIA (SALTO EN EL TRÁILER) -->
     <!-- ========================================================================= -->
     <section id="inercia-trailer" class="scroll-mt-24">
-      <div class="border-b border-slate-800 pb-4 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div class="border-b border-slate-800 pb-4 mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div class="inline-flex items-center gap-2 text-xs font-bold tracking-wider uppercase text-cyan-400 mb-1">
-            <span class="w-2 h-2 rounded-full bg-cyan-400"></span> Física Clásica & Relatividad Galileana
+            <span class="w-2 h-2 rounded-full bg-cyan-400"></span> 1ª Ley de Newton & Relatividad Galileana
           </div>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
             2. ¿Qué pasa si saltas dentro de un tráiler en movimiento?
           </h2>
-          <p class="text-slate-400 mt-2 max-w-2xl text-sm sm:text-base">
-            Si un tráiler viaja a 100 km/h y saltas en su interior, ¿te estrellas contra la pared trasera o caes en el mismo sitio? La respuesta reside en la <strong>1ª Ley de Newton (Inercia)</strong> y los marcos de referencia.
+          <p class="text-slate-400 mt-1 max-w-2xl text-xs sm:text-sm">
+            Si viajas a 100 km/h y saltas en el aire, ¿te estrellas contra la pared trasera? Descubre cómo actúan la inercia y los marcos de referencia.
           </p>
         </div>
         <div>
           <span class="px-3 py-1 bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 rounded-lg text-xs font-mono font-bold">
-            Ley de Inercia: ΣFx = 0 &rarr; Vx = cte
+            Ley de Inercia: &Sigma;Fx = 0 &rarr; Vx = cte
           </span>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
         <!-- Simulation Canvas Card -->
         <div class="lg:col-span-8 space-y-4">
-          <div class="glass-card rounded-2xl p-4 sm:p-6">
+          <div class="glass-card rounded-2xl p-4 sm:p-5">
             <!-- Viewpoint and Status Switcher -->
-            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
               <div class="flex items-center gap-1.5 bg-slate-900/90 p-1 rounded-xl border border-slate-800">
                 <button id="trailerFrameExternalBtn" class="px-3 py-1.5 rounded-lg text-xs font-bold transition bg-cyan-500 text-slate-950 shadow">
                   🔭 Marco Externo (Carretera)
@@ -426,36 +426,36 @@
 
               <div class="flex items-center gap-2 text-xs font-mono">
                 <span class="text-slate-400">Estado:</span>
-                <span id="trailerStateBadge" class="px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">
+                <span id="trailerStateBadge" class="w-28 text-center py-1 rounded-md bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30 inline-block">
                   En el suelo
                 </span>
               </div>
             </div>
 
             <!-- Canvas Viewport -->
-            <div class="relative w-full aspect-[16/9] min-h-[280px] sm:min-h-[350px] bg-slate-950 rounded-xl border border-slate-800 overflow-hidden">
+            <div class="relative w-full aspect-[16/9] min-h-[280px] sm:min-h-[340px] bg-slate-950 rounded-xl border border-slate-800 overflow-hidden">
               <canvas id="trailerCanvas" width="800" height="420" class="w-full h-full object-cover"></canvas>
               
-              <!-- On-screen telemetry HUD overlay -->
-              <div class="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md px-3 py-2 rounded-xl border border-slate-700/60 font-mono text-[11px] space-y-1">
-                <div class="flex items-center gap-2">
-                  <span class="text-slate-400">Velocidad Camión:</span>
-                  <span id="hudTruckSpeed" class="text-cyan-400 font-bold">100 km/h</span>
+              <!-- Telemetry HUD with rigid tabular widths -->
+              <div class="absolute top-3 left-3 bg-slate-900/85 backdrop-blur-md px-3 py-2 rounded-xl border border-slate-700/60 font-mono text-[11px] space-y-1">
+                <div class="flex items-center justify-between gap-3">
+                  <span class="text-slate-400">Camión:</span>
+                  <span id="hudTruckSpeed" class="text-cyan-400 font-bold tabular-nums w-16 text-right">100 km/h</span>
                 </div>
-                <div class="flex items-center gap-2">
-                  <span class="text-slate-400">Velocidad Saltador (Vx):</span>
-                  <span id="hudJumperVx" class="text-emerald-400 font-bold">100 km/h</span>
+                <div class="flex items-center justify-between gap-3">
+                  <span class="text-slate-400">Saltador (Vx):</span>
+                  <span id="hudJumperVx" class="text-emerald-400 font-bold tabular-nums w-16 text-right">100 km/h</span>
                 </div>
-                <div class="flex items-center gap-2">
-                  <span class="text-slate-400">Desplazamiento Relativo:</span>
-                  <span id="hudDeltaX" class="text-amber-400 font-bold">&plusmn; 0.00 m</span>
+                <div class="flex items-center justify-between gap-3">
+                  <span class="text-slate-400">Desplazamiento:</span>
+                  <span id="hudDeltaX" class="text-amber-400 font-bold tabular-nums w-16 text-right">&plusmn;0.00 m</span>
                 </div>
               </div>
 
               <!-- Jump Action Floating Button -->
               <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20">
-                <button id="trailerJumpBtn" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-400 to-emerald-400 hover:from-cyan-300 hover:to-emerald-300 text-slate-950 font-black text-sm uppercase tracking-wider shadow-xl shadow-cyan-500/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button id="trailerJumpBtn" class="px-6 py-2.5 rounded-2xl bg-gradient-to-r from-cyan-400 to-emerald-400 hover:from-cyan-300 hover:to-emerald-300 text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider shadow-xl shadow-cyan-500/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
                   </svg>
                   ¡SALTAR! (Espacio)
@@ -464,7 +464,7 @@
             </div>
 
             <!-- Experiment Scenarios & Sliders -->
-            <div class="mt-4 pt-4 border-t border-slate-800/80 space-y-4">
+            <div class="mt-4 pt-3 border-t border-slate-800/80 space-y-3">
               <div>
                 <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">
                   Elige un Escenario de Prueba:
@@ -494,7 +494,7 @@
                 <div class="space-y-1">
                   <div class="flex justify-between text-xs">
                     <span class="text-slate-400">Velocidad del Tráiler:</span>
-                    <span id="truckSpeedLabel" class="font-mono font-bold text-cyan-400">100 km/h</span>
+                    <span id="truckSpeedLabel" class="font-mono font-bold text-cyan-400 tabular-nums">100 km/h</span>
                   </div>
                   <input id="truckSpeedSlider" type="range" min="0" max="140" value="100" class="w-full accent-cyan-400 bg-slate-800 rounded-lg cursor-pointer">
                 </div>
@@ -502,7 +502,7 @@
                 <div class="space-y-1">
                   <div class="flex justify-between text-xs">
                     <span class="text-slate-400">Potencia del Salto:</span>
-                    <span id="jumpPowerLabel" class="font-mono font-bold text-emerald-400">Medio (0.8 m)</span>
+                    <span id="jumpPowerLabel" class="font-mono font-bold text-emerald-400 tabular-nums">Medio (0.8 m)</span>
                   </div>
                   <input id="jumpPowerSlider" type="range" min="0.4" max="1.5" step="0.1" value="0.8" class="w-full accent-emerald-400 bg-slate-800 rounded-lg cursor-pointer">
                 </div>
@@ -513,37 +513,35 @@
 
         <!-- Right Side: Scientific Explanation & Paradox Breakdown -->
         <div class="lg:col-span-4 space-y-4">
-          <div class="glass-card rounded-2xl p-6">
-            <h3 class="text-lg font-bold text-white mb-3 flex items-center gap-2">
-              <span class="text-cyan-400 text-xl">💡</span> La Respuesta Física
+          <div class="glass-card rounded-2xl p-5">
+            <h3 class="text-base font-bold text-white mb-2.5 flex items-center gap-2">
+              <span class="text-cyan-400 text-lg">💡</span> La Razón Física
             </h3>
-            <p class="text-sm text-slate-300 leading-relaxed mb-3">
-              Al saltar dentro del tráiler cerrado, <strong class="text-white">aterrizas exactamente en el mismo punto</strong> del que despegaste. No te estrellas contra la pared trasera.
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-3">
+              Al saltar dentro del tráiler cerrado, <strong class="text-white">aterrizas exactamente en el mismo punto</strong> del piso. No te estrellas contra la pared trasera.
             </p>
 
-            <div class="space-y-3 text-xs text-slate-300 mt-4">
-              <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
-                <div class="font-bold text-cyan-300 mb-1">1. Conservación de la Inercia Horizontal</div>
-                Antes de saltar, todo tu cuerpo se mueve a 100 km/h respecto a la carretera. Al brincar en dirección vertical, tu impulso es puramente en el eje Y ($Vy$). <span class="text-white">Ninguna fuerza horizontal frena tu avance en el eje X</span> ($Vx = 100\text{ km/h}$).
+            <div class="space-y-2.5 text-xs text-slate-300">
+              <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                <div class="font-bold text-cyan-300 mb-0.5">1. Inercia Horizontal Compartida</div>
+                Antes del salto ya te mueves a 100 km/h. Al brincar, tu fuerza es solo vertical ($Vy$). Ninguna fuerza horizontal frena tu avance en $X$ ($Vx = 100\text{ km/h}$).
               </div>
 
-              <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
-                <div class="font-bold text-emerald-300 mb-1">2. El Aire Interior También Viaja Contigo</div>
-                Dentro de la caja cerrada del camión, la masa de aire está confinada y se mueve también a 100 km/h. Por tanto, no sientes ningún "viento en contra" que frene tu trayectoria en el aire.
+              <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                <div class="font-bold text-emerald-300 mb-0.5">2. Aire Confinado en Movimiento</div>
+                El aire interior de la caja viaja junto con el camión a 100 km/h. No existe resistencia aerodinámica que te empuje hacia atrás.
               </div>
 
-              <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
-                <div class="font-bold text-amber-300 mb-1">3. Relatividad del Observador</div>
-                <ul class="list-disc list-inside space-y-1 text-slate-400">
-                  <li><strong class="text-slate-200">Observador adentro:</strong> Solo ve un salto en línea recta hacia arriba y hacia abajo ($Vy$).</li>
-                  <li><strong class="text-slate-200">Observador afuera:</strong> Ve una parábola perfecta que acompaña al camión a 100 km/h.</li>
-                </ul>
+              <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                <div class="font-bold text-amber-300 mb-0.5">3. Dos Perspectivas Válidas</div>
+                <span class="text-slate-200">Marco Interno:</span> salto puramente vertical ($Vy$).<br>
+                <span class="text-slate-200">Marco Externo:</span> trayectoria parabólica a 100 km/h.
               </div>
             </div>
 
             <!-- Exception Warning Box -->
-            <div class="mt-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-xs text-rose-300 leading-relaxed">
-              <strong>⚠️ ¿Cuándo sí chocarías?</strong> Si el camión pisa el freno o gira violentamente mientras estás flotando en el aire. Como el camión cambia de velocidad pero tu cuerpo conserva su inercia a 100 km/h, volarías hacia la pared delantera (marco no inercial).
+            <div class="mt-3 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-xs text-rose-300 leading-relaxed">
+              <strong>⚠️ ¿Cuándo sí te chocarías?</strong> Si el camión frena bruscamente en pleno salto: el camión desacelera pero tú mantienes los 100 km/h por inercia, volando hacia adelante.
             </div>
           </div>
         </div>
@@ -555,16 +553,16 @@
     <!-- 3. PRESIÓN ATMOSFÉRICA VS. PRESIÓN HIDROSTÁTICA -->
     <!-- ========================================================================= -->
     <section id="presion-comparada" class="scroll-mt-24">
-      <div class="border-b border-slate-800 pb-4 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div class="border-b border-slate-800 pb-4 mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div class="inline-flex items-center gap-2 text-xs font-bold tracking-wider uppercase text-blue-400 mb-1">
-            <span class="w-2 h-2 rounded-full bg-blue-500"></span> Mecánica de Fluidos & Barometría
+            <span class="w-2 h-2 rounded-full bg-blue-500"></span> Barometría e Hidrostática
           </div>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
             3. Presión Atmosférica vs. Presión Bajo el Agua
           </h2>
-          <p class="text-slate-400 mt-2 max-w-2xl text-sm sm:text-base">
-            El peso de los fluidos sobre nosotros: por qué el aire se vuelve tenue en las montañas, mientras que sumergirse en el océano acumula presiones descomunales cada pocos metros.
+          <p class="text-slate-400 mt-1 max-w-2xl text-xs sm:text-sm">
+            El peso de los fluidos: el aire se vuelve tenue con la altitud, mientras que el agua marina añade 1 atmósfera completa cada 10 metros de profundidad.
           </p>
         </div>
         <div>
@@ -574,50 +572,49 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
         <!-- Interactive Depth/Altitude Simulator & Gauges -->
         <div class="lg:col-span-8 space-y-4">
-          <div class="glass-card rounded-2xl p-4 sm:p-6">
+          <div class="glass-card rounded-2xl p-4 sm:p-5">
             
-            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
               <div>
-                <span class="text-xs uppercase tracking-wider text-slate-400 font-bold block">Ubicación Actual:</span>
-                <span id="pressureLocationTitle" class="text-lg font-bold text-white">Nivel del Mar (Superficie)</span>
+                <span class="text-[11px] uppercase tracking-wider text-slate-400 font-bold block">Ubicación Actual:</span>
+                <span id="pressureLocationTitle" class="text-base sm:text-lg font-bold text-white min-h-[1.5rem] inline-block">Nivel del Mar (Superficie)</span>
               </div>
               <div class="flex items-center gap-2 font-mono text-xs">
-                <span id="elevationGaugeBadge" class="px-3 py-1.5 rounded-lg bg-blue-500/20 text-blue-300 font-bold border border-blue-500/30">
+                <span id="elevationGaugeBadge" class="w-36 text-center py-1.5 rounded-lg bg-blue-500/20 text-blue-300 font-bold border border-blue-500/30 inline-block tabular-nums">
                   Cota: 0 metros
                 </span>
               </div>
             </div>
 
-            <!-- Visualization Canvas (From Sky to Ocean Abyss) -->
-            <div class="relative w-full aspect-[16/9] min-h-[300px] sm:min-h-[360px] bg-slate-950 rounded-xl border border-slate-800 overflow-hidden">
+            <!-- Visualization Canvas -->
+            <div class="relative w-full aspect-[16/9] min-h-[280px] sm:min-h-[340px] bg-slate-950 rounded-xl border border-slate-800 overflow-hidden">
               <canvas id="pressureCanvas" width="800" height="420" class="w-full h-full object-cover"></canvas>
               
               <!-- Floating Depth Marker -->
               <div id="depthIndicatorMarker" class="absolute right-4 top-1/2 -translate-y-1/2 bg-slate-900/90 backdrop-blur-md p-3 rounded-xl border border-blue-500/40 text-right font-mono text-xs shadow-2xl">
                 <div class="text-[10px] uppercase text-slate-400">Presión Total</div>
-                <div id="canvasPressureAtm" class="text-xl font-black text-cyan-300">1.00 atm</div>
-                <div id="canvasPressureKpa" class="text-[11px] text-slate-400">101.3 kPa</div>
+                <div id="canvasPressureAtm" class="text-lg font-black text-cyan-300 tabular-nums">1.00 atm</div>
+                <div id="canvasPressureKpa" class="text-[11px] text-slate-400 tabular-nums">101.3 kPa</div>
               </div>
             </div>
 
             <!-- Vertical Depth / Altitude Interactive Slider -->
-            <div class="mt-4 pt-4 border-t border-slate-800/80 space-y-3">
+            <div class="mt-4 pt-3 border-t border-slate-800/80 space-y-3">
               <div class="flex justify-between items-center">
-                <label for="pressureAltitudeSlider" class="text-xs font-bold text-slate-300 flex items-center gap-2">
-                  <span>Mover Sonda (Altitud en Atmósfera &rarr; Profundidad Oceánica):</span>
+                <label for="pressureAltitudeSlider" class="text-xs font-bold text-slate-300">
+                  Mover Sonda (Atmósfera &harr; Profundidad Oceánica):
                 </label>
-                <span id="sliderValueText" class="font-mono text-xs font-bold text-cyan-400">0 m (Nivel del Mar)</span>
+                <span id="sliderValueText" class="font-mono text-xs font-bold text-cyan-400 tabular-nums">0 m (Nivel del Mar)</span>
               </div>
               
-              <!-- Slider from +8848 (Everest) down to -200 (Ocean) -->
               <input id="pressureAltitudeSlider" type="range" min="-200" max="8848" step="10" value="0" class="w-full accent-blue-500 bg-slate-800 rounded-lg cursor-pointer">
 
-              <div class="flex justify-between text-[11px] font-mono text-slate-500">
-                <span class="text-rose-400">-200m (Abismo submarino)</span>
+              <div class="flex justify-between text-[10px] font-mono text-slate-500">
+                <span class="text-rose-400">-200m (Abismo)</span>
                 <span class="text-blue-400">-50m (Buceo)</span>
                 <span class="text-emerald-400 font-bold">0m (Nivel del Mar)</span>
                 <span class="text-amber-400">2,500m (Montañas)</span>
@@ -625,7 +622,7 @@
               </div>
 
               <!-- Quick Landmark Buttons -->
-              <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 pt-2">
+              <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 pt-1">
                 <button class="landmark-btn p-2 rounded-lg text-xs font-semibold bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 transition text-center" data-val="8848">
                   🏔️ Everest (8,848m)
                 </button>
@@ -633,7 +630,7 @@
                   🏙️ CDMX (2,240m)
                 </button>
                 <button class="landmark-btn p-2 rounded-lg text-xs font-semibold bg-blue-500/20 border border-blue-500/40 text-blue-300 transition text-center font-bold" data-val="0">
-                  🏖️ Nivel del Mar (0m)
+                  🏖️ Nivel Mar (0m)
                 </button>
                 <button class="landmark-btn p-2 rounded-lg text-xs font-semibold bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 transition text-center" data-val="-30">
                   🤿 Buceo (-30m)
@@ -645,28 +642,28 @@
                   ⚓ Titanic (-3,800m)
                 </button>
                 <button class="landmark-btn p-2 rounded-lg text-xs font-semibold bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 transition text-center" data-val="-10928">
-                  🌌 Fosa Marianas (-10,928m)
+                  🌌 Fosa Marianas
                 </button>
               </div>
             </div>
 
-            <!-- Pressure Units Telemetry Grid -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4 pt-4 border-t border-slate-800">
+            <!-- Pressure Units Telemetry Grid with tabular numbers -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4 pt-3 border-t border-slate-800">
               <div class="p-3 rounded-xl bg-slate-900/70 border border-slate-800 font-mono">
                 <div class="text-[10px] text-slate-500 uppercase tracking-wider">Atmósferas</div>
-                <div id="unitAtm" class="text-lg font-bold text-white">1.00 atm</div>
+                <div id="unitAtm" class="text-base sm:text-lg font-bold text-white tabular-nums">1.00 atm</div>
               </div>
               <div class="p-3 rounded-xl bg-slate-900/70 border border-slate-800 font-mono">
                 <div class="text-[10px] text-slate-500 uppercase tracking-wider">KiloPascales</div>
-                <div id="unitKpa" class="text-lg font-bold text-cyan-400">101.3 kPa</div>
+                <div id="unitKpa" class="text-base sm:text-lg font-bold text-cyan-400 tabular-nums">101.3 kPa</div>
               </div>
               <div class="p-3 rounded-xl bg-slate-900/70 border border-slate-800 font-mono">
                 <div class="text-[10px] text-slate-500 uppercase tracking-wider">Bares</div>
-                <div id="unitBar" class="text-lg font-bold text-emerald-400">1.013 bar</div>
+                <div id="unitBar" class="text-base sm:text-lg font-bold text-emerald-400 tabular-nums">1.013 bar</div>
               </div>
               <div class="p-3 rounded-xl bg-slate-900/70 border border-slate-800 font-mono">
                 <div class="text-[10px] text-slate-500 uppercase tracking-wider">PSI (Lbs/Pulg²)</div>
-                <div id="unitPsi" class="text-lg font-bold text-amber-400">14.7 psi</div>
+                <div id="unitPsi" class="text-base sm:text-lg font-bold text-amber-400 tabular-nums">14.7 psi</div>
               </div>
             </div>
           </div>
@@ -674,42 +671,33 @@
 
         <!-- Scientific Comparison Breakdown Card -->
         <div class="lg:col-span-4 space-y-4">
-          <div class="glass-card rounded-2xl p-6">
-            <h3 class="text-lg font-bold text-white mb-3">La Gran Diferencia: Densidad</h3>
-            
-            <p class="text-sm text-slate-300 leading-relaxed mb-4">
-              ¿Por qué la presión aumenta tan rápido bajo el agua pero tan lento en el aire? <strong class="text-white">El agua es 800 veces más densa que el aire</strong> y prácticamente incompresible.
+          <div class="glass-card rounded-2xl p-5">
+            <h3 class="text-base font-bold text-white mb-2.5">La Gran Diferencia: Densidad</h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-3">
+              El agua es casi <strong class="text-white">800 veces más densa que el aire</strong> y prácticamente incompresible.
             </p>
 
-            <div class="space-y-3 text-xs">
-              <!-- Air column explanation -->
-              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+            <div class="space-y-2.5 text-xs">
+              <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
                 <div class="font-bold text-cyan-400 mb-1 flex items-center gap-1.5">
                   <span>💨</span> En la Atmósfera (Gas Compresible)
                 </div>
                 <p class="text-slate-300 leading-relaxed">
-                  Toda la columna de aire de la Tierra (más de 100 km de altura) solo ejerce <strong>1 atmósfera (101.3 kPa)</strong> sobre nuestras cabezas. Conforme subes, el aire se expande exponencialmente y la presión cae.
+                  Toda la columna de aire de la Tierra (más de 100 km) ejerce <strong>1 atm (101.3 kPa)</strong> a nivel del mar. La presión disminuye exponencialmente con la altitud.
                 </p>
               </div>
 
-              <!-- Water column explanation -->
-              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+              <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
                 <div class="font-bold text-blue-400 mb-1 flex items-center gap-1.5">
                   <span>🌊</span> En el Océano (Líquido Incompresible)
                 </div>
                 <p class="text-slate-300 leading-relaxed">
-                  ¡Solo <strong>10 metros de agua</strong> pesan lo mismo que toda la atmósfera terrestre entera! Por eso, cada 10 metros que desciendes se suma exactamente <strong>+1 atmósfera</strong> adicional.
+                  ¡Solo <strong>10 metros de agua</strong> pesan lo mismo que toda la atmósfera terrestre! Cada 10 metros se añade <strong>+1 atmósfera</strong>.
                 </p>
-                <div class="mt-2 pt-2 border-t border-slate-800/80 font-mono text-[11px] text-blue-300">
-                  Profundidad 0m = 1 atm<br>
-                  Profundidad 10m = 2 atm (¡el doble!)<br>
-                  Profundidad 40m = 5 atm
-                </div>
               </div>
 
-              <!-- Boyle's law bubble/lung impact -->
-              <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-200/90 leading-relaxed">
-                <strong>🫧 Ley de Boyle (P&middot;V = cte):</strong> Un globo inflado con 1 litro de aire en la playa se encogerá a <strong>0.5 litros</strong> a solo 10 metros bajo el agua. Si un buzo sube aguantando la respiración, el aire de sus pulmones se expandirá al doble, rompiendo los alvéolos.
+              <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-200/90 leading-relaxed">
+                <strong>🫧 Ley de Boyle (P&middot;V = cte):</strong> Un globo inflado con 1 litro de aire a nivel del mar se comprime a <strong>0.5 litros</strong> a 10 metros de profundidad.
               </div>
             </div>
           </div>
@@ -722,16 +710,16 @@
     <!-- 4. ALTURA VS. ALTITUD (AGL VS MSL) -->
     <!-- ========================================================================= -->
     <section id="altura-vs-altitud" class="scroll-mt-24">
-      <div class="border-b border-slate-800 pb-4 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div class="border-b border-slate-800 pb-4 mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div class="inline-flex items-center gap-2 text-xs font-bold tracking-wider uppercase text-emerald-400 mb-1">
             <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Aeronáutica & Topografía
           </div>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
             4. Altura vs. Altitud (Nivel del Suelo vs. Nivel del Mar)
           </h2>
-          <p class="text-slate-400 mt-2 max-w-2xl text-sm sm:text-base">
-            En aviación, confundir estos dos términos puede ser fatal. Aprende la diferencia fundamental entre <strong>MSL</strong> (sobre el nivel del mar), <strong>AGL</strong> (sobre el terreno) y la elevación orográfica.
+          <p class="text-slate-400 mt-1 max-w-2xl text-xs sm:text-sm">
+            En aviación, confundir estos dos términos puede ser fatal. Aprende la diferencia entre <strong>MSL</strong> (nivel del mar), <strong>AGL</strong> (sobre el terreno) y la elevación.
           </p>
         </div>
         <div>
@@ -741,16 +729,16 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
-        <!-- Flight Profile Canvas & Interactive Plane Flight -->
+        <!-- Flight Profile Canvas -->
         <div class="lg:col-span-8 space-y-4">
-          <div class="glass-card rounded-2xl p-4 sm:p-6">
+          <div class="glass-card rounded-2xl p-4 sm:p-5">
             
-            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
               <div class="flex items-center gap-2">
-                <span class="text-xs uppercase tracking-wider text-slate-400 font-bold">Modo de Vuelo:</span>
-                <span id="flightStatusBadge" class="px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-300 font-mono text-xs font-bold border border-emerald-500/30">
+                <span class="text-xs uppercase tracking-wider text-slate-400 font-bold">Modo:</span>
+                <span id="flightStatusBadge" class="w-32 text-center py-1 rounded-md bg-emerald-500/20 text-emerald-300 font-mono text-xs font-bold border border-emerald-500/30 inline-block">
                   Crucero Seguro
                 </span>
               </div>
@@ -762,48 +750,46 @@
             </div>
 
             <!-- Canvas Landscape & Airplane -->
-            <div class="relative w-full aspect-[16/9] min-h-[320px] sm:min-h-[380px] bg-slate-950 rounded-xl border border-slate-800 overflow-hidden">
+            <div class="relative w-full aspect-[16/9] min-h-[280px] sm:min-h-[340px] bg-slate-950 rounded-xl border border-slate-800 overflow-hidden">
               <canvas id="altitudeCanvas" width="800" height="420" class="w-full h-full object-cover"></canvas>
               
-              <!-- Cockpit Proximity Warning System (GPWS) Banner -->
+              <!-- GPWS Banner -->
               <div id="gpwsWarningBanner" class="absolute top-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-xl bg-rose-600/90 text-white font-black text-xs uppercase tracking-widest border border-rose-400 shadow-2xl alarm-blink hidden">
                 ⚠️ ALERTA: ¡TERRENO PRÓXIMO! (PULL UP!)
               </div>
 
-              <!-- Cockpit Avionics Overlay (HUD) -->
+              <!-- HUD with rigid tabular values -->
               <div class="absolute bottom-3 left-3 bg-slate-900/90 backdrop-blur-md p-3 rounded-xl border border-slate-700/80 font-mono text-xs space-y-1.5">
                 <div class="flex items-center justify-between gap-4">
                   <span class="text-amber-400 font-semibold">ALTITUD (MSL):</span>
-                  <span id="hudMslAlt" class="font-bold text-white text-sm">2,500 m (8,202 ft)</span>
+                  <span id="hudMslAlt" class="font-bold text-white text-xs sm:text-sm tabular-nums w-44 text-right">2,500 m (8,202 ft)</span>
                 </div>
                 <div class="flex items-center justify-between gap-4">
                   <span class="text-emerald-400 font-semibold">ALTURA (AGL):</span>
-                  <span id="hudAglAlt" class="font-bold text-emerald-300 text-sm">1,500 m (4,921 ft)</span>
+                  <span id="hudAglAlt" class="font-bold text-emerald-300 text-xs sm:text-sm tabular-nums w-44 text-right">1,500 m (4,921 ft)</span>
                 </div>
                 <div class="flex items-center justify-between gap-4 border-t border-slate-800 pt-1 text-[11px]">
                   <span class="text-slate-400">Elevación Terreno:</span>
-                  <span id="hudElevation" class="text-slate-300 font-medium">1,000 m</span>
+                  <span id="hudElevation" class="text-slate-300 font-medium tabular-nums w-24 text-right">1,000 m</span>
                 </div>
               </div>
             </div>
 
             <!-- Plane Control Sliders -->
-            <div class="mt-4 pt-4 border-t border-slate-800/80 space-y-4">
+            <div class="mt-4 pt-3 border-t border-slate-800/80 space-y-3">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <!-- X Position Slider -->
                 <div class="space-y-1">
                   <div class="flex justify-between text-xs">
-                    <span class="text-slate-400 font-semibold">Posición del Avión (Sobrevolar Terreno):</span>
-                    <span id="planeXPosLabel" class="font-mono text-cyan-400">50% (Sobre la Meseta)</span>
+                    <span class="text-slate-400 font-semibold">Posición del Avión:</span>
+                    <span id="planeXPosLabel" class="font-mono text-cyan-400">Sobre la Meseta</span>
                   </div>
                   <input id="planeXSlider" type="range" min="50" max="750" value="380" class="w-full accent-cyan-400 bg-slate-800 rounded-lg cursor-pointer">
                 </div>
 
-                <!-- Altitude MSL Slider -->
                 <div class="space-y-1">
                   <div class="flex justify-between text-xs">
-                    <span class="text-slate-400 font-semibold">Altitud de Vuelo MSL (Sobre el Mar):</span>
-                    <span id="planeMslSliderLabel" class="font-mono text-amber-400">2,500 m</span>
+                    <span class="text-slate-400 font-semibold">Altitud MSL (Sobre el Mar):</span>
+                    <span id="planeMslSliderLabel" class="font-mono text-amber-400 tabular-nums">2,500 m</span>
                   </div>
                   <input id="planeMslSlider" type="range" min="400" max="3800" step="20" value="2500" class="w-full accent-amber-500 bg-slate-800 rounded-lg cursor-pointer">
                 </div>
@@ -811,12 +797,12 @@
 
               <!-- Quick Flight Location Presets -->
               <div class="flex flex-wrap items-center gap-2 pt-1">
-                <span class="text-xs text-slate-400 font-semibold">Presets de Vuelo:</span>
+                <span class="text-xs text-slate-400 font-semibold">Presets:</span>
                 <button class="flight-preset-btn px-2.5 py-1 rounded-lg text-xs bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition" data-x="120" data-msl="1800">
-                  🌊 Sobre el Océano (MSL = AGL)
+                  🌊 Océano (MSL = AGL)
                 </button>
                 <button class="flight-preset-btn px-2.5 py-1 rounded-lg text-xs bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition" data-x="480" data-msl="2450">
-                  🏔️ Rasante en Cumbre (Peligro AGL)
+                  🏔️ Rasante en Cumbre
                 </button>
                 <button class="flight-preset-btn px-2.5 py-1 rounded-lg text-xs bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition" data-x="700" data-msl="1200">
                   🛬 Pista de Aterrizaje
@@ -827,49 +813,33 @@
           </div>
         </div>
 
-        <!-- Aviation Concepts & CFIT Danger Card -->
+        <!-- Aviation Concepts Card -->
         <div class="lg:col-span-4 space-y-4">
-          <div class="glass-card rounded-2xl p-6">
-            <h3 class="text-lg font-bold text-white mb-3 flex items-center gap-2">
-              <span>🧭</span> Los 3 Conceptos Cruciales
+          <div class="glass-card rounded-2xl p-5">
+            <h3 class="text-base font-bold text-white mb-2.5 flex items-center gap-2">
+              <span>🧭</span> Conceptos Aeronáuticos
             </h3>
 
-            <div class="space-y-3 text-xs">
-              <!-- MSL -->
-              <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20">
-                <div class="font-bold text-amber-300 text-sm mb-1">
-                  1. Altitud (MSL - Mean Sea Level)
-                </div>
-                <p class="text-slate-300 leading-relaxed">
-                  Distancia vertical medida desde el <strong>Nivel Medio del Mar</strong> hasta el avión. Se lee en el <em>altímetro barométrico</em> ajustado con la presión local (código QNH).
-                </p>
+            <div class="space-y-2.5 text-xs">
+              <div class="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                <div class="font-bold text-amber-300 text-sm mb-0.5">Altitud (MSL)</div>
+                Distancia vertical desde el <strong>Nivel Medio del Mar</strong>. Medida con el altímetro barométrico ajustado a QNH.
               </div>
 
-              <!-- AGL -->
-              <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-                <div class="font-bold text-emerald-300 text-sm mb-1">
-                  2. Altura (AGL - Above Ground Level)
-                </div>
-                <p class="text-slate-300 leading-relaxed">
-                  Distancia vertical real entre el avión y el <strong>suelo inmediatamente debajo</strong>. Se mide con el <em>radioaltímetro</em> (ondas de radar rebotando en la tierra).
-                </p>
+              <div class="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                <div class="font-bold text-emerald-300 text-sm mb-0.5">Altura (AGL)</div>
+                Distancia vertical real entre el avión y el <strong>suelo inmediatamente debajo</strong>. Medida con radioaltímetro.
               </div>
 
-              <!-- Elevation -->
-              <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
-                <div class="font-bold text-slate-200 text-sm mb-1">
-                  3. Elevación del Terreno
-                </div>
-                <p class="text-slate-400 leading-relaxed">
-                  La altura física del relieve o la pista de un aeropuerto medida desde el nivel del mar hasta la superficie terrestre.
-                </p>
+              <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                <div class="font-bold text-slate-200 text-sm mb-0.5">Elevación</div>
+                Cota del terreno o de la pista sobre el nivel medio del mar.
               </div>
             </div>
 
-            <!-- Danger of CFIT Warning -->
-            <div class="mt-4 p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-xs text-rose-300 leading-relaxed">
-              <strong class="text-rose-200 block mb-1">⚠️ Peligro de CFIT (Impacto contra el terreno):</strong>
-              Si un avión vuela a <strong class="text-white">3,000 m MSL</strong> sobre el mar tiene 3,000 m de margen. Pero si se aproxima a una meseta de <strong class="text-white">2,800 m de elevación</strong>, ¡su margen real (AGL) se reduce a solo <strong class="text-rose-400">200 metros</strong>!
+            <!-- Warning -->
+            <div class="mt-3 p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-xs text-rose-300 leading-relaxed">
+              <strong>⚠️ Riesgo de CFIT:</strong> Volar a 3,000 m MSL sobre el mar te da 3,000 m de margen. Pero ante una colina de 2,800 m, ¡el margen real AGL es de solo <strong>200 m</strong>!
             </div>
           </div>
         </div>
@@ -878,100 +848,172 @@
     </section>
 
     <!-- ========================================================================= -->
-    <!-- QUICK INTERACTIVE QUIZ (PON A PRUEBA TUS CONOCIMIENTOS) -->
+    <!-- 5. FLUJO LAMINAR VS. FLUJO TURBULENTO (NUEVA SECCIÓN) -->
     <!-- ========================================================================= -->
-    <section class="glass-card rounded-3xl p-6 sm:p-10 border border-slate-800">
-      <div class="max-w-3xl mx-auto text-center mb-8">
-        <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 mb-2 block">Ponte a Prueba</span>
-        <h3 class="text-2xl sm:text-3xl font-extrabold text-white">¿Cuánto aprendiste hoy?</h3>
-        <p class="text-slate-400 text-sm mt-1">Responde estas preguntas rápidas para verificar tu comprensión de los 4 temas.</p>
+    <section id="flujo-laminar" class="scroll-mt-24">
+      <div class="border-b border-slate-800 pb-4 mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 text-xs font-bold tracking-wider uppercase text-teal-400 mb-1">
+            <span class="w-2 h-2 rounded-full bg-teal-500"></span> Mecánica de Fluidos & Dinámica de Medios Continuos
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
+            5. Flujo Laminar vs. Flujo Turbulento
+          </h2>
+          <p class="text-slate-400 mt-1 max-w-2xl text-xs sm:text-sm">
+            Descubre por qué a baja velocidad o alta viscosidad los fluidos se desplazan en láminas paralelas sin mezclarse jamás (el efecto 'agua de cristal'), y cómo el <strong>Número de Reynolds</strong> desata el caos turbulento.
+          </p>
+        </div>
+        <div>
+          <span class="px-3 py-1 bg-teal-500/10 text-teal-300 border border-teal-500/30 rounded-lg text-xs font-mono font-bold">
+            Re = (&rho; &middot; v &middot; D) / &mu;
+          </span>
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto text-xs">
-        <!-- Question 1 -->
-        <div class="bg-slate-900/80 p-5 rounded-2xl border border-slate-800 space-y-3">
-          <div class="font-bold text-white text-sm">1. ¿En cuál de los 4 tiempos el motor genera fuerza motriz útil?</div>
-          <div class="space-y-1.5" id="q1Options">
-            <button class="quiz-btn w-full p-2.5 rounded-xl border border-slate-700 bg-slate-800/50 hover:bg-slate-700 text-left text-slate-300 transition" data-correct="false">
-              A) Admisión
-            </button>
-            <button class="quiz-btn w-full p-2.5 rounded-xl border border-slate-700 bg-slate-800/50 hover:bg-slate-700 text-left text-slate-300 transition" data-correct="false">
-              B) Compresión
-            </button>
-            <button class="quiz-btn w-full p-2.5 rounded-xl border border-slate-700 bg-slate-800/50 hover:bg-slate-700 text-left text-slate-300 transition" data-correct="true">
-              C) Explosión / Expansión
-            </button>
-            <button class="quiz-btn w-full p-2.5 rounded-xl border border-slate-700 bg-slate-800/50 hover:bg-slate-700 text-left text-slate-300 transition" data-correct="false">
-              D) Escape
-            </button>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- Interactive Laminar Canvas Simulation -->
+        <div class="lg:col-span-8 space-y-4">
+          <div class="glass-card rounded-2xl p-4 sm:p-5">
+            
+            <!-- Mode Switcher -->
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+              <div class="flex items-center gap-1.5 bg-slate-900/90 p-1 rounded-xl border border-slate-800">
+                <button id="laminarModeTunnelBtn" class="px-3 py-1.5 rounded-lg text-xs font-bold transition bg-teal-500 text-slate-950 shadow">
+                  🔬 Túnel de Flujo con Obstáculo
+                </button>
+                <button id="laminarModeJetBtn" class="px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white">
+                  🚰 Chorro de "Agua Congelada"
+                </button>
+              </div>
+
+              <div class="flex items-center gap-2 text-xs font-mono">
+                <span class="text-slate-400">Régimen:</span>
+                <span id="reynoldsRegimeBadge" class="w-32 text-center py-1 rounded-md bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30 inline-block tabular-nums">
+                  Laminar (Re &lt; 2300)
+                </span>
+              </div>
+            </div>
+
+            <!-- Canvas Viewport -->
+            <div class="relative w-full aspect-[16/9] min-h-[280px] sm:min-h-[350px] bg-slate-950 rounded-xl border border-slate-800 overflow-hidden shadow-inner">
+              <canvas id="laminarCanvas" width="800" height="420" class="w-full h-full object-cover"></canvas>
+              
+              <!-- Telemetry Overlay on Canvas -->
+              <div class="absolute top-3 left-3 bg-slate-900/85 backdrop-blur-md px-3 py-2 rounded-xl border border-slate-700/60 font-mono text-[11px] space-y-1">
+                <div class="flex items-center justify-between gap-3">
+                  <span class="text-slate-400">Número de Reynolds:</span>
+                  <span id="hudReynoldsNumber" class="text-teal-400 font-bold tabular-nums w-16 text-right">Re = 1200</span>
+                </div>
+                <div class="flex items-center justify-between gap-3">
+                  <span class="text-slate-400">Viscosidad (&mu;):</span>
+                  <span id="hudFluidViscosity" class="text-cyan-400 font-bold tabular-nums w-16 text-right">1.0 mPa&middot;s</span>
+                </div>
+                <div class="flex items-center justify-between gap-3">
+                  <span class="text-slate-400">Arrastre (Cd):</span>
+                  <span id="hudDragCoeff" class="text-amber-400 font-bold tabular-nums w-16 text-right">0.42</span>
+                </div>
+              </div>
+
+              <!-- Interactive Disturbance Button (for water jet mode) -->
+              <div id="touchJetBtnContainer" class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 hidden">
+                <button id="touchJetBtn" class="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-teal-400 to-cyan-400 hover:from-teal-300 hover:to-cyan-300 text-slate-950 font-black text-xs uppercase tracking-wider shadow-xl shadow-teal-500/30 active:scale-95 transition-all flex items-center gap-2">
+                  👆 Tocar el chorro con el dedo (Perturbación)
+                </button>
+              </div>
+            </div>
+
+            <!-- Controls: Reynolds slider, fluids & dye injector -->
+            <div class="mt-4 pt-3 border-t border-slate-800/80 space-y-3">
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs">
+                  <span class="text-slate-300 font-bold">Número de Reynolds (Re): Velocidad de Flujo &harr; Inercia vs Viscosidad</span>
+                  <span id="reynoldsSliderLabel" class="font-mono text-teal-400 font-bold tabular-nums">Re = 1200</span>
+                </div>
+                <input id="reynoldsSlider" type="range" min="100" max="7500" step="50" value="1200" class="w-full accent-teal-400 bg-slate-800 rounded-lg cursor-pointer">
+                <div class="flex justify-between text-[10px] font-mono text-slate-500">
+                  <span class="text-emerald-400">Re &lt; 2,000 (Laminar puro)</span>
+                  <span class="text-amber-400">2,300 - 4,000 (Transición)</span>
+                  <span class="text-rose-400">&gt; 4,000 (Turbulento caótico)</span>
+                </div>
+              </div>
+
+              <!-- Fluid Presets -->
+              <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="text-xs text-slate-400 font-semibold mr-1">Fluido:</span>
+                  <button class="fluid-btn px-2.5 py-1 rounded-lg text-xs bg-teal-500/20 border border-teal-500/40 text-teal-300 font-bold transition" data-visc="1.0" data-name="Agua Dulce">
+                    💧 Agua
+                  </button>
+                  <button class="fluid-btn px-2.5 py-1 rounded-lg text-xs bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition" data-visc="80.0" data-name="Aceite Motor">
+                    🛢️ Aceite
+                  </button>
+                  <button class="fluid-btn px-2.5 py-1 rounded-lg text-xs bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition" data-visc="950.0" data-name="Glicerina / Miel">
+                    🍯 Glicerina (Muy viscoso)
+                  </button>
+                  <button class="fluid-btn px-2.5 py-1 rounded-lg text-xs bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition" data-visc="0.018" data-name="Aire Atmosférico">
+                    💨 Aire
+                  </button>
+                </div>
+
+                <!-- Add Dye Stream Button -->
+                <button id="injectDyeBtn" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 transition flex items-center gap-1.5 shadow">
+                  🌈 Inyectar Tinte Colorante
+                </button>
+              </div>
+            </div>
+
           </div>
-          <div class="quiz-feedback hidden text-[11px] font-semibold mt-2"></div>
         </div>
 
-        <!-- Question 2 -->
-        <div class="bg-slate-900/80 p-5 rounded-2xl border border-slate-800 space-y-3">
-          <div class="font-bold text-white text-sm">2. Si saltas verticalmente en un tráiler a 100 km/h a velocidad constante:</div>
-          <div class="space-y-1.5" id="q2Options">
-            <button class="quiz-btn w-full p-2.5 rounded-xl border border-slate-700 bg-slate-800/50 hover:bg-slate-700 text-left text-slate-300 transition" data-correct="false">
-              A) Te estrellas contra la pared trasera a 100 km/h
-            </button>
-            <button class="quiz-btn w-full p-2.5 rounded-xl border border-slate-700 bg-slate-800/50 hover:bg-slate-700 text-left text-slate-300 transition" data-correct="true">
-              B) Caes en el mismo lugar exacto del suelo
-            </button>
-            <button class="quiz-btn w-full p-2.5 rounded-xl border border-slate-700 bg-slate-800/50 hover:bg-slate-700 text-left text-slate-300 transition" data-correct="false">
-              C) Sales despedido hacia el techo
-            </button>
+        <!-- Right Side: Scientific Breakdown of Laminar Flow -->
+        <div class="lg:col-span-4 space-y-4">
+          <div class="glass-card rounded-2xl p-5">
+            <h3 class="text-base font-bold text-white mb-2.5 flex items-center gap-2">
+              <span class="text-teal-400 text-lg">🌊</span> Principios de Flujo
+            </h3>
+
+            <div class="space-y-2.5 text-xs">
+              <div class="p-2.5 rounded-xl bg-teal-500/10 border border-teal-500/20">
+                <div class="font-bold text-teal-300 text-sm mb-0.5">1. ¿Qué es el Flujo Laminar?</div>
+                Las partículas del fluido se mueven en <strong>láminas paralelas ordenadas</strong>, deslizándose suavemente unas sobre otras sin cruzarse ni mezclarse transversalmente. Las líneas de corriente son estables y predecibles.
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                <div class="font-bold text-slate-200 text-sm mb-0.5">2. El Número de Reynolds (Re)</div>
+                Mide la relación entre las <em>fuerzas de inercia</em> (que buscan desordenar el fluido) y las <em>fuerzas viscosas</em> (que amortiguan el caos):
+                <div class="font-mono text-[11px] text-cyan-300 mt-1">
+                  Re &lt; 2,300 &rarr; Laminar<br>
+                  Re &gt; 4,000 &rarr; Turbulento
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                <div class="font-bold text-amber-300 text-sm mb-0.5">3. El Chorro de "Agua de Cristal"</div>
+                Al perforar un globo o usar boquillas con bajo Reynolds, la superficie del agua es tan matemáticamente lisa e inmóvil que <strong>parece una vara de vidrio sólido congelado</strong>, hasta que un dedo perturba la capa límite.
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-200/90 leading-relaxed">
+                <strong>🌀 Reversibilidad Temporal (Stokes):</strong> A muy bajo Reynolds ($Re \ll 1$, como en la glicerina), si mezclas gotas de colorante girando un cilindro y luego giras en sentido contrario exactamente las mismas vueltas, ¡las gotas se desmezclan y vuelven a su forma original!
+              </div>
+            </div>
           </div>
-          <div class="quiz-feedback hidden text-[11px] font-semibold mt-2"></div>
         </div>
 
-        <!-- Question 3 -->
-        <div class="bg-slate-900/80 p-5 rounded-2xl border border-slate-800 space-y-3">
-          <div class="font-bold text-white text-sm">3. ¿Cuántos metros de profundidad en agua dulce/marina equivalen a 1 atmósfera adicional?</div>
-          <div class="space-y-1.5" id="q3Options">
-            <button class="quiz-btn w-full p-2.5 rounded-xl border border-slate-700 bg-slate-800/50 hover:bg-slate-700 text-left text-slate-300 transition" data-correct="false">
-              A) 1 metro
-            </button>
-            <button class="quiz-btn w-full p-2.5 rounded-xl border border-slate-700 bg-slate-800/50 hover:bg-slate-700 text-left text-slate-300 transition" data-correct="true">
-              B) Aproximadamente 10 metros
-            </button>
-            <button class="quiz-btn w-full p-2.5 rounded-xl border border-slate-700 bg-slate-800/50 hover:bg-slate-700 text-left text-slate-300 transition" data-correct="false">
-              C) 100 metros
-            </button>
-          </div>
-          <div class="quiz-feedback hidden text-[11px] font-semibold mt-2"></div>
-        </div>
-
-        <!-- Question 4 -->
-        <div class="bg-slate-900/80 p-5 rounded-2xl border border-slate-800 space-y-3">
-          <div class="font-bold text-white text-sm">4. Si vuelas a 2,000 m MSL y sobrevuelas una montaña de 1,500 m de elevación, ¿cuál es tu Altura (AGL)?</div>
-          <div class="space-y-1.5" id="q4Options">
-            <button class="quiz-btn w-full p-2.5 rounded-xl border border-slate-700 bg-slate-800/50 hover:bg-slate-700 text-left text-slate-300 transition" data-correct="true">
-              A) 500 metros
-            </button>
-            <button class="quiz-btn w-full p-2.5 rounded-xl border border-slate-700 bg-slate-800/50 hover:bg-slate-700 text-left text-slate-300 transition" data-correct="false">
-              B) 2,000 metros
-            </button>
-            <button class="quiz-btn w-full p-2.5 rounded-xl border border-slate-700 bg-slate-800/50 hover:bg-slate-700 text-left text-slate-300 transition" data-correct="false">
-              C) 3,500 metros
-            </button>
-          </div>
-          <div class="quiz-feedback hidden text-[11px] font-semibold mt-2"></div>
-        </div>
       </div>
     </section>
 
   </main>
 
   <!-- ================= FOOTER ================= -->
-  <footer class="border-t border-slate-800/80 py-12 bg-slate-950 text-slate-400 text-xs">
+  <footer class="border-t border-slate-800/80 py-10 bg-slate-950 text-slate-400 text-xs">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
       <div>
         <div class="font-bold text-white text-sm">Física & Mecánica Interactiva</div>
-        <p class="text-slate-500 mt-1">Herramienta educativa visual y dinámica para la comprensión de principios fundamentales.</p>
+        <p class="text-slate-500 mt-0.5">Plataforma educativa con simulaciones en tiempo real para ciencia, ingeniería y aeronáutica.</p>
       </div>
       <div class="flex items-center gap-4 text-slate-400">
-        <span>Desarrollado con HTML5 Canvas & Tailwind CSS</span>
+        <span>HTML5 Canvas & Tailwind CSS</span>
         <span>&bull;</span>
         <a href="#hero" class="text-cyan-400 hover:underline">Volver arriba &uarr;</a>
       </div>
@@ -981,7 +1023,7 @@
   <!-- ================= JAVASCRIPT SIMULATION LOGIC ================= -->
   <script>
     /* ========================================================================= */
-    /* GLOBAL HELPERS & MOBILE MENU                                              */
+    /* GLOBAL MOBILE MENU                                                        */
     /* ========================================================================= */
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
@@ -989,27 +1031,25 @@
       mobileMenuBtn.addEventListener('click', () => {
         mobileMenu.classList.toggle('hidden');
       });
-      // Close on link click
       mobileMenu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
       });
     }
 
     /* ========================================================================= */
-    /* 1. MOTOR A PISTÓN DE 4 TIEMPOS SIMULATION                                  */
+    /* 1. MOTOR A PISTÓN DE 4 TIEMPOS SIMULATION (HIGH QUALITY, ZERO JITTER)     */
     /* ========================================================================= */
     (function initEngine() {
       const canvas = document.getElementById('engineCanvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
 
-      // State variables
       let isPlaying = true;
       let crankDeg = 0; // 0 to 720 degrees
-      let rpm = 700; // Simulated RPM
+      let rpm = 700;
       let lastTime = performance.now();
 
-      // UI Element references
+      // UI References
       const strokeBadge = document.getElementById('strokeBadge');
       const crankAngleDisplay = document.getElementById('crankAngleDisplay');
       const scrubber = document.getElementById('engineCycleScrubber');
@@ -1022,7 +1062,6 @@
       const stepBtn = document.getElementById('engineStepBtn');
       const sparkFlashOverlay = document.getElementById('sparkFlashOverlay');
       
-      // Stage Info Cards
       const stageInfoCard = document.getElementById('stageInfoCard');
       const stageCardStepNumber = document.getElementById('stageCardStepNumber');
       const stageCardAngleSpan = document.getElementById('stageCardAngleSpan');
@@ -1033,120 +1072,119 @@
       const pistonMotionStatus = document.getElementById('pistonMotionStatus');
       const chamberPressureStatus = document.getElementById('chamberPressureStatus');
 
-      // Dimensions for kinematics
+      // Geometry & Kinematics
       const cx = 250;      // Crank center X
-      const cy = 410;      // Crank center Y
-      const crankR = 55;   // Crank radius
-      const conrodL = 175; // Connecting rod length
-      const pistonW = 120; // Piston width
-      const pistonH = 75;  // Piston height
-      const cylinderTopY = 120; // Cylinder head inside top
+      const cy = 390;      // Crank center Y
+      const crankR = 54;   // Crank radius
+      const conrodL = 170; // Connecting rod length
+      const pistonW = 126; // Piston width
+      const pistonH = 72;  // Piston height
+      const cylinderTopY = 115; // Cylinder head top
 
-      // Geometry calculation: Top Dead Center (PMS) & Bottom Dead Center (PMI)
-      // When crank is straight up (crankDeg = 0 or 360 or 720):
-      // crankPin is at (cx, cy - crankR) -> y = 410 - 55 = 355
-      // wristPin is at y = 355 - conrodL = 355 - 175 = 180 (PMS)
-      // When crank is straight down (crankDeg = 180 or 540):
-      // crankPin is at (cx, cy + crankR) -> y = 410 + 55 = 465
-      // wristPin is at y = 465 - conrodL = 465 - 175 = 290 (PMI)
+      // Particles for fuel mist and combustion embers
+      const mistParticles = [];
+      const emberParticles = [];
 
-      // Spark particles
-      const particles = [];
-
-      function getStageInfo(deg) {
+      function getStageData(deg) {
         const normDeg = ((deg % 720) + 720) % 720;
         if (normDeg < 180) {
           return {
             stage: 1,
-            name: "Admisión",
+            name: "1. Admisión",
             colorClass: "bg-blue-500",
             borderClass: "border-l-blue-500",
             stepText: "ETAPA 1 DE 4",
             angleSpan: "0° a 180° del cigüeñal",
-            title: "1. Admisión: Aspiración de Mezcla",
-            desc: "El pistón desciende del PMS al PMI con la válvula de admisión abierta. Se genera una depresión (vacío relativo) que llena el cilindro con la mezcla de aire atomizado y combustible.",
-            valvAdm: "ABIERTA (Flujo entrante)",
+            title: "Admisión: Llenado del Cilindro",
+            desc: "El pistón desciende desde el Punto Muerto Superior (PMS) hasta el Punto Muerto Inferior (PMI). La válvula de admisión se abre empujada por el árbol de levas, creando un vacío relativo que succiona la mezcla fresca de aire atomizado y gasolina hacia la cámara.",
+            valvAdm: "ABIERTA",
             valvAdmColor: "text-emerald-400",
             valvEsc: "CERRADA",
             valvEscColor: "text-rose-400",
-            motion: "Desciende (PMS \u2192 PMI)",
-            pressure: "Baja (~0.8 bar de aspiración)"
+            motion: "Baja (PMS \u2192 PMI)",
+            pressure: "Depresión (~0.8 bar)"
           };
         } else if (normDeg < 360) {
           return {
             stage: 2,
-            name: "Compresión",
+            name: "2. Compresión",
             colorClass: "bg-amber-500",
             borderClass: "border-l-amber-500",
             stepText: "ETAPA 2 DE 4",
             angleSpan: "180° a 360° del cigüeñal",
-            title: "2. Compresión: Elevando la Presión",
-            desc: "Ambas válvulas permanecen herméticamente cerradas. El pistón sube impulsado por la inercia del cigüeñal, comprimiendo la mezcla hasta reducir su volumen entre 8 y 12 veces, elevando bruscamente su temperatura.",
+            title: "Compresión: Elevando la Presión",
+            desc: "Ambas válvulas permanecen herméticamente cerradas. El pistón asciende impulsado por la inercia del volante motor, reduciendo el volumen de la mezcla entre 8 y 12 veces, aumentando drásticamente la presión y la temperatura.",
             valvAdm: "CERRADA",
             valvAdmColor: "text-rose-400",
             valvEsc: "CERRADA",
             valvEscColor: "text-rose-400",
-            motion: "Asciende (PMI \u2192 PMS)",
-            pressure: "Alta (~12 a 18 bar)"
+            motion: "Sube (PMI \u2192 PMS)",
+            pressure: "Alta (~12 a 16 bar)"
           };
         } else if (normDeg < 540) {
           return {
             stage: 3,
-            name: "Explosión / Combustión",
+            name: "3. Explosión",
             colorClass: "bg-orange-500",
             borderClass: "border-l-orange-500",
             stepText: "ETAPA 3 DE 4 (¡TRABAJO ÚTIL!)",
             angleSpan: "360° a 540° del cigüeñal",
-            title: "3. Explosión: Generación de Fuerza",
-            desc: "Al llegar el pistón al PMS, la bujía genera una chispa eléctrica de alto voltaje. La mezcla deflagra instantáneamente liberando calor; los gases se expanden a enorme presión y empujan el pistón hacia abajo con violencia.",
+            title: "Explosión: Expansión y Potencia",
+            desc: "Al llegar el pistón al PMS, la bujía genera un arco eléctrico de 25,000 V. La mezcla se inflama instantáneamente; la violenta expansión térmica genera un pico de presión enorme que empuja el pistón hacia abajo con gran fuerza.",
             valvAdm: "CERRADA",
             valvAdmColor: "text-rose-400",
             valvEsc: "CERRADA",
             valvEscColor: "text-rose-400",
-            motion: "Desciende empujado (PMS \u2192 PMI)",
-            pressure: "Máxima pico (~40 a 60 bar)"
+            motion: "Empujado (PMS \u2192 PMI)",
+            pressure: "Pico Máximo (~50 bar)"
           };
         } else {
           return {
             stage: 4,
-            name: "Escape",
+            name: "4. Escape",
             colorClass: "bg-slate-500",
             borderClass: "border-l-slate-500",
             stepText: "ETAPA 4 DE 4",
             angleSpan: "540° a 720° del cigüeñal",
-            title: "4. Escape: Expulsión de Gases",
-            desc: "La válvula de escape se abre. El pistón vuelve a subir empujando los gases residuales quemados hacia el colector de escape y el silenciador, dejando el cilindro listo para iniciar un nuevo ciclo.",
+            title: "Escape: Expulsión de Gases",
+            desc: "La válvula de escape se abre. El pistón vuelve a subir por inercia desalojando los gases quemados hacia el colector y silenciador, dejando el cilindro despejado y listo para un nuevo ciclo de admisión.",
             valvAdm: "CERRADA",
             valvAdmColor: "text-rose-400",
-            valvEsc: "ABIERTA (Evacuación)",
+            valvEsc: "ABIERTA",
             valvEscColor: "text-emerald-400",
-            motion: "Asciende (PMI \u2192 PMS)",
+            motion: "Sube (PMI \u2192 PMS)",
             pressure: "Baja (~1.2 bar)"
           };
         }
       }
 
-      function updateUI(deg) {
-        const info = getStageInfo(deg);
-        
-        strokeBadge.className = `px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${info.colorClass} text-white shadow-md`;
-        strokeBadge.textContent = `${info.stage}. ${info.name}`;
-        crankAngleDisplay.textContent = `Cigüeñal: ${deg.toFixed(1)}° (${Math.round((deg%720)/7.2)}% ciclo)`;
-        scrubber.value = Math.round(deg % 720);
+      let currentStageId = -1;
 
-        // Update technical card
-        if (stageCardTitle.textContent !== info.title) {
-          stageInfoCard.className = `glass-card rounded-2xl p-6 border-l-4 ${info.borderClass} transition-all`;
-          stageCardStepNumber.textContent = info.stepText;
-          stageCardAngleSpan.textContent = info.angleSpan;
-          stageCardTitle.textContent = info.title;
-          stageCardDescription.textContent = info.desc;
-          valvulaAdmisionStatus.textContent = info.valvAdm;
-          valvulaAdmisionStatus.className = `font-bold ${info.valvAdmColor}`;
-          valvulaEscapeStatus.textContent = info.valvEsc;
-          valvulaEscapeStatus.className = `font-bold ${info.valvEscColor}`;
-          pistonMotionStatus.textContent = info.motion;
-          chamberPressureStatus.textContent = info.pressure;
+      function updateUI(deg) {
+        const normDeg = ((deg % 720) + 720) % 720;
+        const data = getStageData(normDeg);
+
+        // Fixed-width formatting prevents ANY jitter
+        const degStr = Math.round(normDeg).toString().padStart(3, '0');
+        crankAngleDisplay.textContent = `Cigüeñal: ${degStr}°`;
+        scrubber.value = Math.round(normDeg);
+
+        if (currentStageId !== data.stage) {
+          currentStageId = data.stage;
+          strokeBadge.className = `w-32 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${data.colorClass} text-white shadow-md text-center inline-block`;
+          strokeBadge.textContent = data.name;
+
+          stageInfoCard.className = `glass-card rounded-2xl p-5 border-l-4 ${data.borderClass} transition-colors min-h-[300px] flex flex-col justify-between`;
+          stageCardStepNumber.textContent = data.stepText;
+          stageCardAngleSpan.textContent = data.angleSpan;
+          stageCardTitle.textContent = data.title;
+          stageCardDescription.textContent = data.desc;
+          valvulaAdmisionStatus.textContent = data.valvAdm;
+          valvulaAdmisionStatus.className = `font-bold ${data.valvAdmColor} text-[11px]`;
+          valvulaEscapeStatus.textContent = data.valvEsc;
+          valvulaEscapeStatus.className = `font-bold ${data.valvEscColor} text-[11px]`;
+          pistonMotionStatus.textContent = data.motion;
+          chamberPressureStatus.textContent = data.pressure;
         }
       }
 
@@ -1154,150 +1192,258 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         const rad = (deg * Math.PI) / 180;
-        
+        const normDeg = ((deg % 720) + 720) % 720;
+
         // Kinematics:
         // Crankpin rotates around (cx, cy)
-        // At deg = 0, crank is UP (y = cy - crankR)
         const crankPinX = cx + crankR * Math.sin(rad);
         const crankPinY = cy - crankR * Math.cos(rad);
 
-        // Wristpin moves on vertical line X = cx
-        // Distance between (cx, wristPinY) and (crankPinX, crankPinY) is conrodL
-        // (crankPinX - cx)^2 + (crankPinY - wristPinY)^2 = conrodL^2
+        // Piston wrist pin stays on X = cx
         const dx = crankPinX - cx;
         const wristPinY = crankPinY - Math.sqrt(Math.max(0, conrodL * conrodL - dx * dx));
-        const pistonTopY = wristPinY - 30; // Piston top relative to wrist pin
+        const pistonTopY = wristPinY - 28;
 
-        const normDeg = ((deg % 720) + 720) % 720;
+        // Camshaft angle = crankDeg / 2 (1 cam rotation per 2 crank rotations)
+        const camRad = rad / 2;
 
-        // Determine valve lifts (0 = closed, 14 = fully open downwards)
+        // Valve lift curves (0 to 15 pixels)
         let intakeLift = 0;
         let exhaustLift = 0;
         if (normDeg >= 0 && normDeg <= 180) {
-          // Intake stroke: smooth bell curve lift
-          intakeLift = Math.sin((normDeg / 180) * Math.PI) * 14;
+          intakeLift = Math.sin((normDeg / 180) * Math.PI) * 15;
         }
         if (normDeg >= 540 && normDeg <= 720) {
-          // Exhaust stroke: smooth bell curve lift
-          exhaustLift = Math.sin(((normDeg - 540) / 180) * Math.PI) * 14;
+          exhaustLift = Math.sin(((normDeg - 540) / 180) * Math.PI) * 15;
         }
 
-        // ================= BACKGROUND & CYLINDER HEAD =================
-        // Cylinder bore interior space
-        ctx.fillStyle = '#090d16';
+        // ================= 1. CYLINDER BORE INTERIOR & HONING MARKS =================
+        ctx.fillStyle = '#0a0f1d';
         ctx.fillRect(cx - pistonW / 2, cylinderTopY, pistonW, cy - cylinderTopY);
 
-        // Dynamic Combustion Chamber Chamber Fill (gas color)
-        const chamberHeight = Math.max(10, pistonTopY - cylinderTopY);
-        let chamberGrad = ctx.createLinearGradient(0, cylinderTopY, 0, pistonTopY);
-        
-        if (normDeg < 180) {
-          // Intake: Cool fresh blue mixture
-          chamberGrad.addColorStop(0, 'rgba(56, 189, 248, 0.45)');
-          chamberGrad.addColorStop(1, 'rgba(56, 189, 248, 0.15)');
-        } else if (normDeg < 355) {
-          // Compression: Warming amber/yellow
-          const compRatio = (normDeg - 180) / 180;
-          chamberGrad.addColorStop(0, `rgba(251, 191, 36, ${0.3 + compRatio * 0.5})`);
-          chamberGrad.addColorStop(1, `rgba(245, 158, 11, ${0.2 + compRatio * 0.4})`);
-        } else if (normDeg >= 355 && normDeg <= 430) {
-          // Explosion: Fiery brilliant white-orange burst
-          chamberGrad.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
-          chamberGrad.addColorStop(0.3, 'rgba(249, 115, 22, 0.9)');
-          chamberGrad.addColorStop(1, 'rgba(220, 38, 38, 0.6)');
-        } else if (normDeg < 540) {
-          // Expansion/combustion cooling: Dark orange
-          chamberGrad.addColorStop(0, 'rgba(234, 88, 12, 0.5)');
-          chamberGrad.addColorStop(1, 'rgba(154, 52, 18, 0.2)');
-        } else {
-          // Exhaust: Smoky grey
-          chamberGrad.addColorStop(0, 'rgba(148, 163, 184, 0.4)');
-          chamberGrad.addColorStop(1, 'rgba(71, 85, 105, 0.2)');
+        // Cylinder wall cross-hatch honing pattern
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+        ctx.lineWidth = 1;
+        for (let hy = cylinderTopY; hy < cy - 40; hy += 12) {
+          ctx.beginPath();
+          ctx.moveTo(cx - pistonW / 2, hy);
+          ctx.lineTo(cx + pistonW / 2, hy + 24);
+          ctx.moveTo(cx + pistonW / 2, hy);
+          ctx.lineTo(cx - pistonW / 2, hy + 24);
+          ctx.stroke();
         }
-        ctx.fillStyle = chamberGrad;
-        ctx.fillRect(cx - pistonW / 2 + 1, cylinderTopY, pistonW - 2, chamberHeight);
 
-        // Draw Intake & Exhaust Runners
-        // Intake Runner (Left)
+        // ================= 2. GAS DYNAMICS IN COMBUSTION CHAMBER =================
+        const chamberH = Math.max(12, pistonTopY - cylinderTopY);
+        let gasGrad = ctx.createLinearGradient(0, cylinderTopY, 0, pistonTopY);
+
+        if (normDeg < 180) {
+          // Intake: Cool fresh cyan fuel mist
+          gasGrad.addColorStop(0, 'rgba(56, 189, 248, 0.55)');
+          gasGrad.addColorStop(1, 'rgba(56, 189, 248, 0.15)');
+        } else if (normDeg < 355) {
+          // Compression: Warming amber gas
+          const t = (normDeg - 180) / 175;
+          gasGrad.addColorStop(0, `rgba(251, 191, 36, ${0.35 + t * 0.45})`);
+          gasGrad.addColorStop(1, `rgba(245, 158, 11, ${0.2 + t * 0.4})`);
+        } else if (normDeg >= 355 && normDeg <= 440) {
+          // Explosion: Brilliant fiery core with expanding flame front
+          gasGrad.addColorStop(0, 'rgba(255, 255, 255, 0.98)');
+          gasGrad.addColorStop(0.25, 'rgba(250, 204, 21, 0.95)');
+          gasGrad.addColorStop(0.6, 'rgba(249, 115, 22, 0.85)');
+          gasGrad.addColorStop(1, 'rgba(220, 38, 38, 0.65)');
+        } else if (normDeg < 540) {
+          // Power stroke expansion: Deep orange cooling gas
+          gasGrad.addColorStop(0, 'rgba(234, 88, 12, 0.55)');
+          gasGrad.addColorStop(1, 'rgba(154, 52, 18, 0.25)');
+        } else {
+          // Exhaust: Smoky gray plume
+          gasGrad.addColorStop(0, 'rgba(148, 163, 184, 0.45)');
+          gasGrad.addColorStop(1, 'rgba(71, 85, 105, 0.2)');
+        }
+
+        ctx.fillStyle = gasGrad;
+        ctx.fillRect(cx - pistonW / 2 + 1, cylinderTopY, pistonW - 2, chamberH);
+
+        // ================= 3. INTAKE & EXHAUST MANIFOLD RUNNERS =================
+        // Intake Runner (Left, with air filter / injector)
         ctx.fillStyle = '#1e293b';
         ctx.beginPath();
-        ctx.moveTo(cx - 90, 60);
-        ctx.lineTo(cx - 35, 60);
-        ctx.lineTo(cx - 35, cylinderTopY);
-        ctx.lineTo(cx - 55, cylinderTopY);
-        ctx.lineTo(cx - 90, 95);
+        ctx.moveTo(cx - 95, 55);
+        ctx.lineTo(cx - 36, 55);
+        ctx.lineTo(cx - 36, cylinderTopY);
+        ctx.lineTo(cx - 56, cylinderTopY);
+        ctx.lineTo(cx - 95, 92);
         ctx.closePath();
         ctx.fill();
         ctx.strokeStyle = '#38bdf8';
         ctx.lineWidth = 1.5;
         ctx.stroke();
 
-        // Exhaust Runner (Right)
+        // Exhaust Runner (Right, header pipe)
         ctx.fillStyle = '#1e293b';
         ctx.beginPath();
-        ctx.moveTo(cx + 90, 60);
-        ctx.lineTo(cx + 35, 60);
-        ctx.lineTo(cx + 35, cylinderTopY);
-        ctx.lineTo(cx + 55, cylinderTopY);
-        ctx.lineTo(cx + 90, 95);
+        ctx.moveTo(cx + 95, 55);
+        ctx.lineTo(cx + 36, 55);
+        ctx.lineTo(cx + 36, cylinderTopY);
+        ctx.lineTo(cx + 56, cylinderTopY);
+        ctx.lineTo(cx + 95, 92);
         ctx.closePath();
         ctx.fill();
         ctx.strokeStyle = '#94a3b8';
         ctx.lineWidth = 1.5;
         ctx.stroke();
 
-        // ================= CYLINDER WALLS & COOLING FINS =================
-        const wallThickness = 14;
-        ctx.fillStyle = '#334155';
-        // Left wall
-        ctx.fillRect(cx - pistonW / 2 - wallThickness, cylinderTopY, wallThickness, 250);
-        // Right wall
-        ctx.fillRect(cx + pistonW / 2, cylinderTopY, wallThickness, 250);
+        // Fuel Injector Nozzle on left runner
+        ctx.fillStyle = '#64748b';
+        ctx.fillRect(cx - 82, 42, 14, 22);
+        ctx.fillStyle = '#38bdf8';
+        ctx.fillRect(cx - 78, 64, 6, 6);
 
-        // Cooling fins on outer edges
-        ctx.fillStyle = '#475569';
-        for (let fy = cylinderTopY + 20; fy < cylinderTopY + 230; fy += 22) {
-          ctx.fillRect(cx - pistonW / 2 - wallThickness - 14, fy, 14, 6);
-          ctx.fillRect(cx + pistonW / 2 + wallThickness, fy, 14, 6);
+        // If intake valve open: emit mist particles
+        if (intakeLift > 2) {
+          for (let m = 0; m < 2; m++) {
+            mistParticles.push({
+              x: cx - 46 + (Math.random() * 12 - 6),
+              y: cylinderTopY + 4,
+              vx: (Math.random() - 0.2) * 2,
+              vy: Math.random() * 4 + 2,
+              life: 1.0
+            });
+          }
         }
 
-        // ================= VALVES =================
-        // Intake Valve (Left)
-        const inVx = cx - 45;
+        // Render mist particles
+        for (let i = mistParticles.length - 1; i >= 0; i--) {
+          const pt = mistParticles[i];
+          pt.x += pt.vx;
+          pt.y += pt.vy;
+          pt.life -= 0.04;
+          if (pt.life <= 0 || pt.y >= pistonTopY) {
+            mistParticles.splice(i, 1);
+            continue;
+          }
+          ctx.fillStyle = `rgba(56, 189, 248, ${pt.life * 0.7})`;
+          ctx.beginPath();
+          ctx.arc(pt.x, pt.y, 2.5 * pt.life, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // ================= 4. OVERHEAD CAMSHAFT & SPRINGS =================
+        const inVx = cx - 46;
+        const exVx = cx + 46;
+        const camY = 32;
+
+        // Rotating camshaft lobes (spinning at half crank speed)
+        // Intake cam lobe
+        ctx.save();
+        ctx.translate(inVx, camY);
+        ctx.rotate(camRad);
+        ctx.fillStyle = '#94a3b8';
+        ctx.beginPath();
+        ctx.arc(0, 0, 11, 0, Math.PI * 2);
+        ctx.fill();
+        // Cam lobe nose
+        ctx.fillStyle = '#cbd5e1';
+        ctx.beginPath();
+        ctx.moveTo(-10, 0);
+        ctx.lineTo(0, 18);
+        ctx.lineTo(10, 0);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+
+        // Exhaust cam lobe
+        ctx.save();
+        ctx.translate(exVx, camY);
+        ctx.rotate(camRad + Math.PI / 2);
+        ctx.fillStyle = '#94a3b8';
+        ctx.beginPath();
+        ctx.arc(0, 0, 11, 0, Math.PI * 2);
+        ctx.fill();
+        // Cam lobe nose
+        ctx.fillStyle = '#cbd5e1';
+        ctx.beginPath();
+        ctx.moveTo(-10, 0);
+        ctx.lineTo(0, 18);
+        ctx.lineTo(10, 0);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+
+        // VALVES WITH HELICAL SPRINGS
+        // Intake Valve
         const inVy = cylinderTopY + intakeLift;
-        ctx.strokeStyle = '#94a3b8';
+        ctx.strokeStyle = '#cbd5e1';
         ctx.lineWidth = 4;
         ctx.beginPath();
-        ctx.moveTo(inVx, inVy - 55);
+        ctx.moveTo(inVx, camY + 12);
         ctx.lineTo(inVx, inVy);
         ctx.stroke();
-        // Valve disk
-        ctx.fillStyle = intakeLift > 2 ? '#38bdf8' : '#cbd5e1';
+
+        // Helical spring around intake valve stem
+        ctx.strokeStyle = '#64748b';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        const springTopY = camY + 20;
+        const springBottomY = cylinderTopY - 10;
+        const springLoops = 5;
+        const loopH = (springBottomY - springTopY) / springLoops;
+        for (let s = 0; s < springLoops; s++) {
+          const sy = springTopY + s * loopH;
+          ctx.moveTo(inVx - 7, sy);
+          ctx.lineTo(inVx + 7, sy + loopH * 0.5);
+          ctx.lineTo(inVx - 7, sy + loopH);
+        }
+        ctx.stroke();
+
+        // Intake valve disk
+        ctx.fillStyle = intakeLift > 2 ? '#38bdf8' : '#e2e8f0';
         ctx.beginPath();
         ctx.ellipse(inVx, inVy, 15, 5, 0, 0, Math.PI * 2);
         ctx.fill();
-
-        // Exhaust Valve (Right)
-        const exVx = cx + 45;
-        const exVy = cylinderTopY + exhaustLift;
         ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        // Exhaust Valve
+        const exVy = cylinderTopY + exhaustLift;
+        ctx.strokeStyle = '#cbd5e1';
         ctx.lineWidth = 4;
         ctx.beginPath();
-        ctx.moveTo(exVx, exVy - 55);
+        ctx.moveTo(exVx, camY + 12);
         ctx.lineTo(exVx, exVy);
         ctx.stroke();
-        // Valve disk
-        ctx.fillStyle = exhaustLift > 2 ? '#f97316' : '#cbd5e1';
+
+        // Helical spring around exhaust valve stem
+        ctx.strokeStyle = '#64748b';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        for (let s = 0; s < springLoops; s++) {
+          const sy = springTopY + s * loopH;
+          ctx.moveTo(exVx - 7, sy);
+          ctx.lineTo(exVx + 7, sy + loopH * 0.5);
+          ctx.lineTo(exVx - 7, sy + loopH);
+        }
+        ctx.stroke();
+
+        // Exhaust valve disk
+        ctx.fillStyle = exhaustLift > 2 ? '#f97316' : '#e2e8f0';
         ctx.beginPath();
         ctx.ellipse(exVx, exVy, 15, 5, 0, 0, Math.PI * 2);
         ctx.fill();
+        ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
 
-        // ================= SPARK PLUG (BUJÍA) =================
-        ctx.fillStyle = '#f8fafc'; // White ceramic
-        ctx.fillRect(cx - 8, cylinderTopY - 45, 16, 30);
-        ctx.fillStyle = '#64748b'; // Hex steel body
-        ctx.fillRect(cx - 10, cylinderTopY - 15, 20, 15);
-        // Electrodes
+        // ================= 5. SPARK PLUG & SPARK EVENT =================
+        // White ceramic insulator
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(cx - 7, cylinderTopY - 45, 14, 28);
+        ctx.fillStyle = '#64748b';
+        ctx.fillRect(cx - 9, cylinderTopY - 17, 18, 17);
+
+        // Plug electrodes
         ctx.strokeStyle = '#e2e8f0';
         ctx.lineWidth = 2.5;
         ctx.beginPath();
@@ -1305,92 +1451,101 @@
         ctx.lineTo(cx, cylinderTopY + 8);
         ctx.stroke();
         ctx.beginPath();
-        ctx.moveTo(cx - 5, cylinderTopY);
-        ctx.lineTo(cx - 5, cylinderTopY + 11);
+        ctx.moveTo(cx - 6, cylinderTopY);
+        ctx.lineTo(cx - 6, cylinderTopY + 11);
         ctx.lineTo(cx, cylinderTopY + 11);
         ctx.stroke();
 
-        // SPARK EVENT AT 360 DEGREES!
+        // ELECTRIC SPARK AT 360° (PMS Ignition)
         if (normDeg >= 356 && normDeg <= 372) {
-          ctx.strokeStyle = '#38bdf8';
-          ctx.shadowColor = '#67e8f9';
-          ctx.shadowBlur = 15;
+          ctx.strokeStyle = '#67e8f9';
+          ctx.shadowColor = '#38bdf8';
+          ctx.shadowBlur = 18;
           ctx.lineWidth = 3;
           ctx.beginPath();
           ctx.moveTo(cx, cylinderTopY + 8);
-          ctx.lineTo(cx + (Math.random() * 4 - 2), cylinderTopY + 9.5);
+          ctx.lineTo(cx + (Math.random() * 6 - 3), cylinderTopY + 9.5);
           ctx.lineTo(cx, cylinderTopY + 11);
           ctx.stroke();
           ctx.shadowBlur = 0; // Reset
 
-          // Trigger brief UI flash
-          sparkFlashOverlay.style.opacity = '0.7';
-          setTimeout(() => { sparkFlashOverlay.style.opacity = '0'; }, 80);
-
-          // Add explosion sparks
+          // Embers
           for (let p = 0; p < 4; p++) {
-            particles.push({
-              x: cx + (Math.random() * 40 - 20),
-              y: cylinderTopY + 15 + Math.random() * 15,
-              vx: (Math.random() - 0.5) * 4,
-              vy: Math.random() * 3 + 1,
-              life: 1.0,
-              color: Math.random() > 0.4 ? '#f97316' : '#fbbf24'
+            emberParticles.push({
+              x: cx + (Math.random() * 30 - 15),
+              y: cylinderTopY + 12 + Math.random() * 10,
+              vx: (Math.random() - 0.5) * 5,
+              vy: Math.random() * 4 + 1,
+              life: 1.0
             });
           }
         }
 
-        // Render any active combustion particles
-        for (let i = particles.length - 1; i >= 0; i--) {
-          const pt = particles[i];
+        // Render embers
+        for (let i = emberParticles.length - 1; i >= 0; i--) {
+          const pt = emberParticles[i];
           pt.x += pt.vx;
           pt.y += pt.vy;
           pt.life -= 0.05;
           if (pt.life <= 0 || pt.y >= pistonTopY) {
-            particles.splice(i, 1);
+            emberParticles.splice(i, 1);
             continue;
           }
-          ctx.fillStyle = pt.color;
-          ctx.globalAlpha = pt.life;
+          ctx.fillStyle = pt.life > 0.5 ? '#facc15' : '#f97316';
           ctx.beginPath();
           ctx.arc(pt.x, pt.y, 3 * pt.life, 0, Math.PI * 2);
           ctx.fill();
         }
-        ctx.globalAlpha = 1.0;
 
-        // ================= CRANKCASE & CRANKSHAFT =================
-        // Crankcase circular backdrop
+        // ================= 6. CYLINDER WALLS & COOLING FINS =================
+        const wallT = 14;
+        ctx.fillStyle = '#334155';
+        ctx.fillRect(cx - pistonW / 2 - wallT, cylinderTopY, wallT, 240);
+        ctx.fillRect(cx + pistonW / 2, cylinderTopY, wallT, 240);
+
+        // Exterior cooling fins
+        ctx.fillStyle = '#475569';
+        for (let fy = cylinderTopY + 15; fy < cylinderTopY + 225; fy += 20) {
+          ctx.fillRect(cx - pistonW / 2 - wallT - 14, fy, 14, 5);
+          ctx.fillRect(cx + pistonW / 2 + wallT, fy, 14, 5);
+        }
+
+        // ================= 7. CRANKCASE & CRANKSHAFT =================
         ctx.fillStyle = '#0f172a';
         ctx.beginPath();
-        ctx.arc(cx, cy, crankR + 25, 0, Math.PI * 2);
+        ctx.arc(cx, cy, crankR + 28, 0, Math.PI * 2);
         ctx.fill();
         ctx.strokeStyle = '#1e293b';
         ctx.lineWidth = 3;
         ctx.stroke();
 
-        // Crankshaft counterweight (Contrapeso)
-        // Opposes the crankpin (so centered around rad + PI)
+        // Crankshaft counterweight (Contrapeso de cigüeñal)
         ctx.save();
         ctx.translate(cx, cy);
         ctx.rotate(rad);
         ctx.fillStyle = '#475569';
         ctx.beginPath();
-        ctx.arc(0, 0, crankR + 15, Math.PI * 0.6, Math.PI * 1.4);
+        ctx.arc(0, 0, crankR + 18, Math.PI * 0.6, Math.PI * 1.4);
         ctx.lineTo(0, 0);
         ctx.closePath();
         ctx.fill();
         ctx.strokeStyle = '#64748b';
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 2.5;
         ctx.stroke();
-        // Central crank journal
+
+        // Central main bearing journal
         ctx.fillStyle = '#94a3b8';
         ctx.beginPath();
-        ctx.arc(0, 0, 16, 0, Math.PI * 2);
+        ctx.arc(0, 0, 18, 0, Math.PI * 2);
         ctx.fill();
+        ctx.strokeStyle = '#cbd5e1';
+        ctx.lineWidth = 2;
+        ctx.stroke();
         ctx.restore();
 
-        // ================= CONNECTING ROD (BIELA) =================
+        // ================= 8. CONNECTING ROD (BIELA EN 'H') =================
         ctx.save();
+        // Main rod body
         ctx.strokeStyle = '#64748b';
         ctx.lineWidth = 14;
         ctx.lineCap = 'round';
@@ -1399,94 +1554,111 @@
         ctx.lineTo(cx, wristPinY);
         ctx.stroke();
 
-        // Internal rod groove
+        // Inner H-beam groove
         ctx.strokeStyle = '#334155';
-        ctx.lineWidth = 6;
+        ctx.lineWidth = 5;
         ctx.beginPath();
         ctx.moveTo(crankPinX, crankPinY);
         ctx.lineTo(cx, wristPinY);
         ctx.stroke();
 
-        // Big-end journal (cigüeñal)
+        // Big-end journal (head on crankpin) with two clamping bolts
         ctx.fillStyle = '#94a3b8';
         ctx.beginPath();
-        ctx.arc(crankPinX, crankPinY, 14, 0, Math.PI * 2);
+        ctx.arc(crankPinX, crankPinY, 15, 0, Math.PI * 2);
         ctx.fill();
         ctx.strokeStyle = '#cbd5e1';
         ctx.lineWidth = 2;
         ctx.stroke();
 
-        // Small-end wrist pin
-        ctx.fillStyle = '#cbd5e1';
+        // Big end bolts
+        ctx.fillStyle = '#1e293b';
         ctx.beginPath();
-        ctx.arc(cx, wristPinY, 9, 0, Math.PI * 2);
+        ctx.arc(crankPinX - 8, crankPinY, 2.5, 0, Math.PI * 2);
+        ctx.arc(crankPinX + 8, crankPinY, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Small-end wrist pin bushing
+        ctx.fillStyle = '#d97706'; // Bronze bushing
+        ctx.beginPath();
+        ctx.arc(cx, wristPinY, 11, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#e2e8f0';
+        ctx.beginPath();
+        ctx.arc(cx, wristPinY, 7, 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
 
-        // ================= PISTON (PISTÓN) =================
+        // ================= 9. PISTON (PISTÓN FORJADO) =================
         const pLeft = cx - pistonW / 2 + 2;
-        const pWidth = pistonW - 4;
-        
-        // Piston Crown Gradient
-        const pGrad = ctx.createLinearGradient(pLeft, pistonTopY, pLeft + pWidth, pistonTopY);
+        const pW = pistonW - 4;
+
+        // Piston Crown Metallic Gradient
+        const pGrad = ctx.createLinearGradient(pLeft, pistonTopY, pLeft + pW, pistonTopY);
         pGrad.addColorStop(0, '#64748b');
-        pGrad.addColorStop(0.5, '#cbd5e1');
+        pGrad.addColorStop(0.5, '#e2e8f0');
         pGrad.addColorStop(1, '#475569');
         ctx.fillStyle = pGrad;
 
-        // Piston Body
+        // Piston body with rounded skirt
         ctx.beginPath();
-        ctx.roundRect(pLeft, pistonTopY, pWidth, pistonH, [6, 6, 2, 2]);
+        ctx.roundRect(pLeft, pistonTopY, pW, pistonH, [6, 6, 4, 4]);
         ctx.fill();
         ctx.strokeStyle = '#94a3b8';
         ctx.lineWidth = 1.5;
         ctx.stroke();
 
-        // 3 Compression Rings on Piston
+        // 3 Distinct Piston Rings with cross grooves
         ctx.fillStyle = '#0f172a';
-        ctx.fillRect(pLeft - 1, pistonTopY + 8, pWidth + 2, 2.5);
-        ctx.fillRect(pLeft - 1, pistonTopY + 16, pWidth + 2, 2.5);
-        ctx.fillRect(pLeft - 1, pistonTopY + 24, pWidth + 2, 2.5);
+        ctx.fillRect(pLeft - 1, pistonTopY + 7, pW + 2, 2.5); // 1st compression ring
+        ctx.fillRect(pLeft - 1, pistonTopY + 15, pW + 2, 2.5); // 2nd scraper ring
+        ctx.fillRect(pLeft - 1, pistonTopY + 23, pW + 2, 2.5); // 3rd oil control ring
 
-        // Wrist pin hole cover
-        ctx.fillStyle = '#334155';
+        // Piston crown valve reliefs
+        ctx.fillStyle = '#475569';
         ctx.beginPath();
-        ctx.arc(cx, wristPinY, 7, 0, Math.PI * 2);
+        ctx.arc(cx - 40, pistonTopY + 2, 12, 0, Math.PI);
+        ctx.arc(cx + 40, pistonTopY + 2, 12, 0, Math.PI);
         ctx.fill();
 
-        // Force Arrow during combustion (Stroke 3)
+        // Wrist pin hole & circlip
+        ctx.fillStyle = '#334155';
+        ctx.beginPath();
+        ctx.arc(cx, wristPinY, 8, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Downward Force Arrows during Combustion
         if (normDeg >= 365 && normDeg <= 520) {
           const arrowAlpha = Math.sin(((normDeg - 365) / 155) * Math.PI);
           ctx.strokeStyle = `rgba(249, 115, 22, ${arrowAlpha})`;
           ctx.fillStyle = `rgba(249, 115, 22, ${arrowAlpha})`;
-          ctx.lineWidth = 5;
-          const ay = pistonTopY + 15;
-          ctx.beginPath();
-          ctx.moveTo(cx, ay);
-          ctx.lineTo(cx, ay + 35);
-          ctx.stroke();
-          // Arrowhead
-          ctx.beginPath();
-          ctx.moveTo(cx - 10, ay + 35);
-          ctx.lineTo(cx + 10, ay + 35);
-          ctx.lineTo(cx, ay + 48);
-          ctx.closePath();
-          ctx.fill();
+          ctx.lineWidth = 4;
+          const ay = pistonTopY + 14;
+          [-30, 0, 30].forEach(ox => {
+            ctx.beginPath();
+            ctx.moveTo(cx + ox, ay);
+            ctx.lineTo(cx + ox, ay + 28);
+            ctx.stroke();
+            // Arrowhead
+            ctx.beginPath();
+            ctx.moveTo(cx + ox - 6, ay + 28);
+            ctx.lineTo(cx + ox + 6, ay + 28);
+            ctx.lineTo(cx + ox, ay + 38);
+            ctx.closePath();
+            ctx.fill();
+          });
         }
 
-        // ================= OVERLAYS (PMS & PMI LABELS) =================
-        ctx.fillStyle = 'rgba(148, 163, 184, 0.4)';
+        // ================= 10. LABELS: PMS & PMI =================
+        ctx.fillStyle = 'rgba(148, 163, 184, 0.45)';
         ctx.font = '10px JetBrains Mono';
-        // PMS line at y = 150 (approx piston crown at top)
-        ctx.fillText('PMS (Punto Muerto Sup.) ───', 15, 155);
-        // PMI line at y = 260
-        ctx.fillText('PMI (Punto Muerto Inf.) ───', 15, 265);
+        ctx.fillText('PMS (Sup.) ───', 12, 148);
+        ctx.fillText('PMI (Inf.) ───', 12, 256);
       }
 
       function animationLoop(now) {
         if (isPlaying) {
-          const dt = (now - lastTime) / 1000;
-          // Degrees per second = (RPM / 60) * 360
+          const dt = Math.min((now - lastTime) / 1000, 0.05);
           const degPerSec = (rpm / 60) * 360;
           crankDeg = (crankDeg + degPerSec * dt) % 720;
           updateUI(crankDeg);
@@ -1501,8 +1673,8 @@
         isPlaying = !isPlaying;
         playText.textContent = isPlaying ? 'Pausar' : 'Reanudar';
         playPauseBtn.className = isPlaying
-          ? 'px-4 py-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-slate-950 font-bold text-sm flex items-center gap-2 shadow-lg shadow-orange-500/20 transition-all'
-          : 'px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-slate-950 font-bold text-sm flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition-all';
+          ? 'w-28 py-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-slate-950 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-orange-500/20 transition-all'
+          : 'w-28 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-slate-950 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 transition-all';
       });
 
       stepBtn.addEventListener('click', () => {
@@ -1552,7 +1724,7 @@
         });
       });
 
-      // Interactive inspection on hover
+      // Interactive hover inspection
       const enginePartTooltip = document.getElementById('enginePartTooltip');
       const enginePartName = document.getElementById('enginePartName');
       const enginePartDesc = document.getElementById('enginePartDesc');
@@ -1564,49 +1736,48 @@
         const mx = (e.clientX - rect.left) * scaleX;
         const my = (e.clientY - rect.top) * scaleY;
 
-        // Kinematic state for current angle
         const rad = (crankDeg * Math.PI) / 180;
         const crankPinX = cx + crankR * Math.sin(rad);
         const crankPinY = cy - crankR * Math.cos(rad);
         const dx = crankPinX - cx;
         const wristPinY = crankPinY - Math.sqrt(Math.max(0, conrodL * conrodL - dx * dx));
-        const pistonTopY = wristPinY - 30;
+        const pistonTopY = wristPinY - 28;
 
         let part = null;
         if (Math.abs(mx - cx) < 16 && my >= cylinderTopY - 45 && my <= cylinderTopY + 15) {
           part = {
-            name: "Bujía de Encendido",
-            desc: "Genera la chispa eléctrica de más de 20,000 V exactamente al finalizar la compresión para detonar la mezcla."
+            name: "⚡ Bujía de Alto Voltaje",
+            desc: "Dispara la chispa eléctrica de 25,000 V exactamente al finalizar la compresión para detonar la mezcla."
           };
-        } else if (Math.abs(mx - (cx - 45)) < 25 && my >= cylinderTopY - 55 && my <= cylinderTopY + 25) {
+        } else if (Math.abs(mx - (cx - 46)) < 24 && my >= cylinderTopY - 60 && my <= cylinderTopY + 25) {
           part = {
-            name: "Válvula de Admisión",
-            desc: "Permite la entrada de aire y combustible al cilindro durante el 1er tiempo. Se abre accionada por el árbol de levas."
+            name: "📥 Válvula de Admisión",
+            desc: "Regula el ingreso de aire y combustible al cilindro. Accionada por el árbol de levas superior."
           };
-        } else if (Math.abs(mx - (cx + 45)) < 25 && my >= cylinderTopY - 55 && my <= cylinderTopY + 25) {
+        } else if (Math.abs(mx - (cx + 46)) < 24 && my >= cylinderTopY - 60 && my <= cylinderTopY + 25) {
           part = {
-            name: "Válvula de Escape",
-            desc: "Desaloja los gases de combustión quemados al colector durante el 4º tiempo."
+            name: "📤 Válvula de Escape",
+            desc: "Permite la evacuación de los gases residuales quemados hacia el colector durante el 4º tiempo."
           };
         } else if (Math.abs(mx - cx) < pistonW / 2 && my >= pistonTopY && my <= pistonTopY + pistonH) {
           part = {
-            name: "Pistón (Émbolo)",
-            desc: "Elemento de aleación forjada con 3 aros de compresión que absorbe la expansión de los gases y empuja la biela."
+            name: "🔩 Pistón Forjado (3 Aros)",
+            desc: "Émbolo de aleación de aluminio con aros de compresión y rascador de aceite. Recibe la presión de los gases."
           };
-        } else if (my > pistonTopY + pistonH && my < cy - 20) {
+        } else if (my > pistonTopY + pistonH && my < cy - 20 && Math.abs(mx - (cx + dx * ((my - wristPinY) / (crankPinY - wristPinY)))) < 24) {
           part = {
-            name: "Biela",
-            desc: "Viga articulada de acero forjado en forma de 'H' que convierte el movimiento rectilíneo del pistón en rotación."
+            name: "⛓️ Biela en Perfil 'H'",
+            desc: "Viga estructural de acero forjado con cojinetes que transforma el vaivén del pistón en rotación."
           };
-        } else if (Math.hypot(mx - cx, my - cy) < crankR + 25) {
+        } else if (Math.hypot(mx - cx, my - cy) < crankR + 28) {
           part = {
-            name: "Cigüeñal y Contrapesos",
-            desc: "Eje rotatorio principal del motor. Transforma el vaivén lineal en torque continuo y equilibrado hacia la transmisión."
+            name: "🔄 Cigüeñal y Contrapesos",
+            desc: "Eje rotatorio principal. Los contrapesos equilibran la inercia del tren alternativo para evitar vibraciones."
           };
         } else if ((Math.abs(mx - (cx - pistonW/2 - 7)) < 15 || Math.abs(mx - (cx + pistonW/2 + 7)) < 15) && my >= cylinderTopY && my <= cy - 50) {
           part = {
-            name: "Paredes del Cilindro y Aletas de Refrigeración",
-            desc: "Camisa metálica donde desliza el pistón; las aletas exteriores disipan el calor térmico residual."
+            name: "🛡️ Cilindro y Aletas Térmicas",
+            desc: "Camisa de acero de tolerancia micrométrica; las aletas exteriores disipan el calor térmico residual."
           };
         }
 
@@ -1635,41 +1806,33 @@
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
 
-      // State variables
       let frameMode = 'external'; // 'external' or 'internal'
-      let scenario = 'constant';   // 'constant', 'brake', 'accelerate', 'openbed'
+      let scenario = 'constant';
       let truckSpeedKmh = 100;
       let jumpPowerM = 0.8;
       
-      // World dimensions & physics
-      // Canvas width: 800, height: 420
       const groundY = 320;
       const trailerW = 340;
       const trailerH = 150;
       const cabinW = 100;
       const cabinH = 120;
-      const jumperW = 20;
       const jumperH = 46;
 
-      let truckX = 200; // Left coordinate of trailer rear
-      let truckVx = (truckSpeedKmh * 1000) / 3600; // m/s
-      let pxPerMeter = 12; // 12 pixels = 1 meter
+      let truckX = 200;
+      let pxPerMeter = 12;
 
-      // Jumper state
       let isJumping = false;
       let jumpTime = 0;
-      let jumpTotalTime = 0.8; // seconds in air
-      let jumperX = 0; // World X
-      let jumperY = 0; // Relative to trailer floor
-      let jumperVx = 0; // Horizontal velocity in world frame
-      let jumperVy = 0; // Vertical velocity
+      let jumpTotalTime = 0.8;
+      let jumperX = 0;
+      let jumperY = 0;
+      let jumperVx = 0;
+      let jumperVy = 0;
       let jumpStartXInTrailer = 0;
       let landingDeltaX = 0;
       
-      // Trajectory path history
       const trajectoryDots = [];
 
-      // UI references
       const jumpBtn = document.getElementById('trailerJumpBtn');
       const extBtn = document.getElementById('trailerFrameExternalBtn');
       const intBtn = document.getElementById('trailerFrameInternalBtn');
@@ -1689,7 +1852,7 @@
         isJumping = false;
         jumpTime = 0;
         stateBadge.textContent = "En el suelo";
-        stateBadge.className = "px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30";
+        stateBadge.className = "w-28 text-center py-1 rounded-md bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30 inline-block";
       }
       resetJumperPosition();
 
@@ -1697,23 +1860,16 @@
         if (isJumping) return;
         isJumping = true;
         jumpTime = 0;
-        trajectoryDots.length = 0; // Clear previous path
+        trajectoryDots.length = 0;
 
-        // Jump physics
-        // Gravity g = 9.81 m/s²
-        // Height h = jumpPowerM
-        // v0y = sqrt(2 * g * h)
-        // t_air = 2 * v0y / g
         const g = 9.81;
         jumperVy = Math.sqrt(2 * g * jumpPowerM);
         jumpTotalTime = (2 * jumperVy) / g;
-
-        // Jumper inherits truck horizontal velocity!
         jumperVx = (truckSpeedKmh * 1000) / 3600;
         jumpStartXInTrailer = (jumperX - truckX);
 
-        stateBadge.textContent = "¡EN EL AIRE!";
-        stateBadge.className = "px-2.5 py-1 rounded-md bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/30 animate-pulse";
+        stateBadge.textContent = "¡En el aire!";
+        stateBadge.className = "w-28 text-center py-1 rounded-md bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/30 animate-pulse inline-block";
       }
 
       jumpBtn.addEventListener('click', triggerJump);
@@ -1724,7 +1880,6 @@
         }
       });
 
-      // Frame switches
       extBtn.addEventListener('click', () => {
         frameMode = 'external';
         extBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition bg-cyan-500 text-slate-950 shadow";
@@ -1736,7 +1891,6 @@
         extBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white";
       });
 
-      // Scenarios
       document.querySelectorAll('.scenario-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           document.querySelectorAll('.scenario-btn').forEach(b => {
@@ -1748,7 +1902,6 @@
         });
       });
 
-      // Sliders
       speedSlider.addEventListener('input', (e) => {
         truckSpeedKmh = parseFloat(e.target.value);
         speedLabel.textContent = `${truckSpeedKmh} km/h`;
@@ -1756,7 +1909,7 @@
       });
       jumpPowerSlider.addEventListener('input', (e) => {
         jumpPowerM = parseFloat(e.target.value);
-        jumpPowerLabel.textContent = `${jumpPowerM.toFixed(1)} m`;
+        jumpPowerLabel.textContent = `Medio (${jumpPowerM.toFixed(1)} m)`;
       });
 
       let lastT = performance.now();
@@ -1766,70 +1919,52 @@
         const dt = Math.min((now - lastT) / 1000, 0.05);
         lastT = now;
 
-        // Current truck speed calculation
         let currentTruckVx = (truckSpeedKmh * 1000) / 3600;
 
-        // Apply scenario effects during mid-air flight
         if (isJumping) {
           jumpTime += dt;
           const g = 9.81;
-
-          // Vertical motion: y(t) = vy*t - 0.5*g*t^2
           const yMeters = Math.max(0, jumperVy * jumpTime - 0.5 * g * jumpTime * jumpTime);
-          jumperY = yMeters * pxPerMeter * 5; // Scale height for visibility
+          jumperY = yMeters * pxPerMeter * 5;
 
-          // Horizontal motion adjustments according to scenario
-          if (scenario === 'constant') {
-            // Normal 1st Law: jumperVx remains strictly constant!
-            // No air resistance inside closed trailer.
-          } else if (scenario === 'brake') {
-            // Truck slams on brakes mid-air: decelerates sharply
+          if (scenario === 'brake') {
             currentTruckVx = Math.max(0, currentTruckVx - 22 * dt);
             truckSpeedKmh = Math.round((currentTruckVx * 3600) / 1000);
           } else if (scenario === 'accelerate') {
-            // Truck punches the gas mid-air
             currentTruckVx += 25 * dt;
             truckSpeedKmh = Math.round((currentTruckVx * 3600) / 1000);
           } else if (scenario === 'openbed') {
-            // Open pickup bed: external wind drag slows jumperVx
-            const windResistance = 18 * dt; // Decelerates jumper
+            const windResistance = 18 * dt;
             jumperVx = Math.max(0, jumperVx - windResistance);
           }
 
-          // Advance positions
           jumperX += jumperVx * dt * pxPerMeter;
           truckX += currentTruckVx * dt * pxPerMeter;
 
-          // Record trajectory dot
           trajectoryDots.push({ x: jumperX, y: groundY - 20 - jumperY });
           if (trajectoryDots.length > 80) trajectoryDots.shift();
 
-          // Check landing
           if (jumpTime >= jumpTotalTime || yMeters <= 0) {
             isJumping = false;
             jumperY = 0;
-            // Calculate landing offset relative to takeoff spot on trailer floor
             const currentXInTrailer = jumperX - truckX;
             landingDeltaX = (currentXInTrailer - jumpStartXInTrailer) / pxPerMeter;
             hudDeltaX.textContent = `${landingDeltaX >= 0 ? '+' : ''}${landingDeltaX.toFixed(2)} m`;
             
-            stateBadge.textContent = Math.abs(landingDeltaX) < 0.1 ? "¡Aterrizaje en el mismo sitio!" : "Desplazado por aceleración/viento";
+            stateBadge.textContent = Math.abs(landingDeltaX) < 0.1 ? "Mismo sitio" : "Desplazado";
             stateBadge.className = Math.abs(landingDeltaX) < 0.1 
-              ? "px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30"
-              : "px-2.5 py-1 rounded-md bg-rose-500/20 text-rose-300 font-bold border border-rose-500/30";
+              ? "w-28 text-center py-1 rounded-md bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30 inline-block"
+              : "w-28 text-center py-1 rounded-md bg-rose-500/20 text-rose-300 font-bold border border-rose-500/30 inline-block";
 
-            // If truck had braked/accelerated, slowly restore slider speed
             setTimeout(() => {
               truckSpeedKmh = parseFloat(speedSlider.value);
             }, 600);
           }
         } else {
-          // Standing on floor: locks perfectly with truck
           truckX += currentTruckVx * dt * pxPerMeter;
           jumperX = truckX + jumpStartXInTrailer;
         }
 
-        // Loop truck wrap-around canvas in external view
         if (frameMode === 'external') {
           if (truckX > canvas.width + 100) {
             const shift = canvas.width + trailerW + cabinW + 150;
@@ -1838,29 +1973,25 @@
             trajectoryDots.length = 0;
           }
         } else {
-          // Internal view: truck stays centered in canvas!
           truckX = canvas.width / 2 - trailerW / 2;
           jumperX = truckX + (isJumping ? (jumperX - truckX) : jumpStartXInTrailer);
         }
 
-        // Road movement
         roadOffset = (roadOffset + currentTruckVx * dt * pxPerMeter * 2) % 60;
 
-        // Telemetry readout updates
         hudTruckSpeed.textContent = `${Math.round(truckSpeedKmh)} km/h`;
         hudJumperVx.textContent = `${Math.round((jumperVx * 3600) / 1000)} km/h`;
 
-        // ================= RENDER TO CANVAS =================
+        // DRAW
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // 1. Sky & distant landscape
+        // Sky & distant hills
         const skyGrad = ctx.createLinearGradient(0, 0, 0, groundY);
         skyGrad.addColorStop(0, '#020617');
         skyGrad.addColorStop(1, '#0f172a');
         ctx.fillStyle = skyGrad;
         ctx.fillRect(0, 0, canvas.width, groundY);
 
-        // Distant mountains
         ctx.fillStyle = '#1e293b';
         ctx.beginPath();
         ctx.moveTo(0, groundY);
@@ -1873,10 +2004,9 @@
         ctx.closePath();
         ctx.fill();
 
-        // 2. Road surface & markings
+        // Road
         ctx.fillStyle = '#111827';
         ctx.fillRect(0, groundY, canvas.width, canvas.height - groundY);
-        // Yellow lane divider
         ctx.strokeStyle = '#eab308';
         ctx.lineWidth = 4;
         ctx.setLineDash([25, 20]);
@@ -1885,9 +2015,9 @@
         ctx.moveTo(0, groundY + 45);
         ctx.lineTo(canvas.width, groundY + 45);
         ctx.stroke();
-        ctx.setLineDash([]); // Reset dash
+        ctx.setLineDash([]);
 
-        // 3. Trajectory trace dots (in external view or internal view)
+        // Trajectory
         if (trajectoryDots.length > 1) {
           ctx.strokeStyle = 'rgba(56, 189, 248, 0.7)';
           ctx.lineWidth = 2.5;
@@ -1903,22 +2033,19 @@
           ctx.setLineDash([]);
         }
 
-        // 4. DRAW THE TRUCK (TRAILER & CABIN)
+        // Truck
         const trailerFloorY = groundY - 20;
         const trailerRoofY = trailerFloorY - trailerH;
 
-        // Wheels
         ctx.fillStyle = '#0f172a';
         ctx.strokeStyle = '#64748b';
         ctx.lineWidth = 3;
         const wheelY = groundY - 5;
-        // Trailer wheels (rear)
         [truckX + 35, truckX + 75].forEach(wx => {
           ctx.beginPath();
           ctx.arc(wx, wheelY, 15, 0, Math.PI * 2);
           ctx.fill();
           ctx.stroke();
-          // Rim hub
           ctx.fillStyle = '#cbd5e1';
           ctx.beginPath();
           ctx.arc(wx, wheelY, 5, 0, Math.PI * 2);
@@ -1926,7 +2053,6 @@
           ctx.fillStyle = '#0f172a';
         });
 
-        // Cabin wheels (front)
         const cabX = truckX + trailerW;
         [cabX + 40, cabX + 85].forEach(wx => {
           ctx.beginPath();
@@ -1940,7 +2066,7 @@
           ctx.fillStyle = '#0f172a';
         });
 
-        // Truck Cabin
+        // Cabin
         ctx.fillStyle = '#0284c7';
         ctx.beginPath();
         ctx.moveTo(cabX, trailerFloorY);
@@ -1954,7 +2080,6 @@
         ctx.lineWidth = 2;
         ctx.stroke();
 
-        // Cabin Windshield
         ctx.fillStyle = 'rgba(186, 230, 253, 0.7)';
         ctx.beginPath();
         ctx.moveTo(cabX + 45, trailerFloorY - cabinH + 15);
@@ -1964,22 +2089,18 @@
         ctx.closePath();
         ctx.fill();
 
-        // TRAILER INTERIOR (CUTAWAY / TRANSPARENT WALL)
+        // Trailer
         if (scenario === 'openbed') {
-          // Open platform bed (no ceiling or walls)
           ctx.fillStyle = '#334155';
           ctx.fillRect(truckX, trailerFloorY - 10, trailerW, 10);
           ctx.strokeStyle = '#475569';
           ctx.lineWidth = 3;
           ctx.strokeRect(truckX, trailerFloorY - 10, trailerW, 10);
-          // Little rear tailgate
           ctx.fillRect(truckX, trailerFloorY - 30, 8, 30);
         } else {
-          // Closed trailer interior: Cutaway view
           ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
           ctx.fillRect(truckX, trailerRoofY, trailerW, trailerH);
 
-          // Structural ribbed wall lines
           ctx.strokeStyle = 'rgba(51, 65, 85, 0.4)';
           ctx.lineWidth = 1;
           for (let rx = truckX + 30; rx < truckX + trailerW; rx += 35) {
@@ -1989,20 +2110,18 @@
             ctx.stroke();
           }
 
-          // Trailer frame border
           ctx.strokeStyle = '#38bdf8';
           ctx.lineWidth = 2.5;
           ctx.strokeRect(truckX, trailerRoofY, trailerW, trailerH);
 
-          // Closed trailer front & rear wall
           ctx.fillStyle = '#1e293b';
-          ctx.fillRect(truckX, trailerRoofY, 8, trailerH); // Rear wall
-          ctx.fillRect(truckX + trailerW - 8, trailerRoofY, 8, trailerH); // Front wall
-          ctx.fillRect(truckX, trailerRoofY, trailerW, 8); // Ceiling
-          ctx.fillRect(truckX, trailerFloorY - 8, trailerW, 8); // Floor
+          ctx.fillRect(truckX, trailerRoofY, 8, trailerH);
+          ctx.fillRect(truckX + trailerW - 8, trailerRoofY, 8, trailerH);
+          ctx.fillRect(truckX, trailerRoofY, trailerW, 8);
+          ctx.fillRect(truckX, trailerFloorY - 8, trailerW, 8);
         }
 
-        // Takeoff Spot Marker on trailer floor
+        // Spot marker
         const spotX = truckX + jumpStartXInTrailer;
         ctx.fillStyle = 'rgba(16, 185, 129, 0.4)';
         ctx.beginPath();
@@ -2012,23 +2131,20 @@
         ctx.lineWidth = 1.5;
         ctx.stroke();
 
-        // 5. DRAW THE JUMPER CHARACTER
+        // Jumper
         const curJumperX = (frameMode === 'internal') ? (truckX + jumpStartXInTrailer + (jumperX - (truckX + jumpStartXInTrailer))) : jumperX;
         const curJumperY = trailerFloorY - 10 - jumperH - jumperY;
 
-        // Shadow under jumper
         const shadowScale = Math.max(0.2, 1 - jumperY / 120);
         ctx.fillStyle = `rgba(0, 0, 0, ${0.4 * shadowScale})`;
         ctx.beginPath();
         ctx.ellipse(curJumperX, trailerFloorY - 2, 12 * shadowScale, 3 * shadowScale, 0, 0, Math.PI * 2);
         ctx.fill();
 
-        // Character Legs
         ctx.strokeStyle = '#38bdf8';
         ctx.lineWidth = 3.5;
         ctx.beginPath();
         if (isJumping) {
-          // Bent legs in air
           ctx.moveTo(curJumperX - 5, curJumperY + 28);
           ctx.lineTo(curJumperX - 9, curJumperY + 38);
           ctx.lineTo(curJumperX - 4, curJumperY + 44);
@@ -2036,7 +2152,6 @@
           ctx.lineTo(curJumperX + 9, curJumperY + 38);
           ctx.lineTo(curJumperX + 4, curJumperY + 44);
         } else {
-          // Standing straight
           ctx.moveTo(curJumperX - 5, curJumperY + 28);
           ctx.lineTo(curJumperX - 5, curJumperY + 46);
           ctx.moveTo(curJumperX + 5, curJumperY + 28);
@@ -2044,24 +2159,20 @@
         }
         ctx.stroke();
 
-        // Torso / Jacket
         ctx.fillStyle = '#f97316';
         ctx.beginPath();
         ctx.roundRect(curJumperX - 8, curJumperY + 12, 16, 18, 4);
         ctx.fill();
 
-        // Head with helmet
         ctx.fillStyle = '#facc15';
         ctx.beginPath();
         ctx.arc(curJumperX, curJumperY + 6, 7, 0, Math.PI * 2);
         ctx.fill();
 
-        // Arms
         ctx.strokeStyle = '#fdba74';
         ctx.lineWidth = 2.5;
         ctx.beginPath();
         if (isJumping) {
-          // Arms up in air
           ctx.moveTo(curJumperX - 7, curJumperY + 15);
           ctx.lineTo(curJumperX - 13, curJumperY + 6);
           ctx.moveTo(curJumperX + 7, curJumperY + 15);
@@ -2074,9 +2185,7 @@
         }
         ctx.stroke();
 
-        // 6. VELOCITY VECTOR ARROWS (GREEN FOR Vx, BLUE FOR Vy)
         if (isJumping && frameMode === 'external') {
-          // Horizontal velocity vector (green)
           ctx.strokeStyle = '#10b981';
           ctx.fillStyle = '#10b981';
           ctx.lineWidth = 3;
@@ -2084,26 +2193,12 @@
           ctx.moveTo(curJumperX, curJumperY + 20);
           ctx.lineTo(curJumperX + 40, curJumperY + 20);
           ctx.stroke();
-          // Arrow head
           ctx.beginPath();
           ctx.moveTo(curJumperX + 40, curJumperY + 16);
           ctx.lineTo(curJumperX + 48, curJumperY + 20);
           ctx.lineTo(curJumperX + 40, curJumperY + 24);
           ctx.closePath();
           ctx.fill();
-
-          ctx.font = '10px JetBrains Mono';
-          ctx.fillText('Vx (Inercia)', curJumperX + 15, curJumperY + 14);
-        }
-
-        // Wind particles in open pickup scenario
-        if (scenario === 'openbed' && isJumping) {
-          ctx.fillStyle = 'rgba(244, 63, 94, 0.7)';
-          for (let w = 0; w < 4; w++) {
-            const wx = curJumperX + 15 + Math.random() * 20;
-            const wy = curJumperY + Math.random() * 40;
-            ctx.fillRect(wx, wy, 8, 2);
-          }
         }
 
         requestAnimationFrame(updateAndDraw);
@@ -2133,28 +2228,22 @@
       const canvasAtm = document.getElementById('canvasPressureAtm');
       const canvasKpa = document.getElementById('canvasPressureKpa');
 
-      let currentElevation = 0; // meters: positive = altitude in air, negative = ocean depth
+      let currentElevation = 0;
 
       function calculatePressure(h) {
-        // Standard atmospheric calculations
         let atm = 1.0;
         let kpa = 101.325;
         let bar = 1.01325;
         let psi = 14.696;
 
         if (h >= 0) {
-          // Barometric formula: P = P0 * (1 - L*h/T0)^(g*M/(R*L))
-          // Exponential decay approximation up to Everest (8,848m)
           atm = Math.pow(1 - (0.0065 * h) / 288.15, 5.255);
           if (atm < 0.05) atm = 0.05;
           kpa = atm * 101.325;
           bar = atm * 1.01325;
           psi = atm * 14.696;
         } else {
-          // Hydrostatic ocean pressure: P = Patm + rho * g * depth
-          // depth = -h in meters
           const depth = -h;
-          // Every 10.06 meters of water adds ~1 atm
           const addedWaterAtm = depth / 10.06;
           atm = 1.0 + addedWaterAtm;
           bar = atm * 1.01325;
@@ -2179,7 +2268,7 @@
         if (elev > 0) {
           sliderLabel.textContent = `+${elev} m (Atmósfera)`;
           elevationBadge.textContent = `Altitud: +${elev} m`;
-          elevationBadge.className = "px-3 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/30";
+          elevationBadge.className = "w-36 text-center py-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/30 inline-block tabular-nums";
           if (elev > 8000) locationTitle.textContent = "🏔️ Cima del Everest (Zona de la Muerte)";
           else if (elev > 4000) locationTitle.textContent = "🏔️ Alta Montaña (Hipoxia Severa)";
           else if (elev > 1500) locationTitle.textContent = "🏙️ Mesetas Habitadas (CDMX / Bogotá)";
@@ -2188,36 +2277,33 @@
           const depth = Math.abs(elev);
           sliderLabel.textContent = `-${depth} m (Bajo el Agua)`;
           elevationBadge.textContent = `Profundidad: -${depth} m`;
-          elevationBadge.className = "px-3 py-1.5 rounded-lg bg-blue-500/20 text-blue-300 font-bold border border-blue-500/30";
-          if (depth >= 10000) locationTitle.textContent = "🌌 Fosa de las Marianas (Abismo Challenger - 10,928m)";
-          else if (depth >= 3000) locationTitle.textContent = "🚢 Restos del Titanic (-3,800m / 378 atm de aplastamiento)";
+          elevationBadge.className = "w-36 text-center py-1.5 rounded-lg bg-blue-500/20 text-blue-300 font-bold border border-blue-500/30 inline-block tabular-nums";
+          if (depth >= 10000) locationTitle.textContent = "🌌 Fosa de las Marianas (-10,928m / 1,086 atm)";
+          else if (depth >= 3000) locationTitle.textContent = "🚢 Restos del Titanic (-3,800m / 378 atm)";
           else if (depth > 100) locationTitle.textContent = "🚢 Zona Crepuscular Submarina (-100m)";
-          else if (depth > 40) locationTitle.textContent = "🤿 Límite del Buceo Recreativo Profundo";
+          else if (depth > 40) locationTitle.textContent = "🤿 Límite de Buceo Recreativo (-40m)";
           else locationTitle.textContent = "🐠 Arrecife Marino Superficial";
         } else {
           sliderLabel.textContent = "0 m (Nivel del Mar)";
           elevationBadge.textContent = "Cota: 0 metros";
-          elevationBadge.className = "px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30";
-          locationTitle.textContent = "🏖️ Nivel del Mar (Referencia Estándar 1 atm)";
+          elevationBadge.className = "w-36 text-center py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30 inline-block tabular-nums";
+          locationTitle.textContent = "🏖️ Nivel del Mar (Referencia 1 atm)";
         }
       }
 
       function drawPressureWorld(elev) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Sea level is at Y = 210 in canvas
         const seaY = 210;
 
-        // 1. SKY GRADIENT (Space black -> Deep blue -> Cyan -> Hazy sea)
         const skyGrad = ctx.createLinearGradient(0, 0, 0, seaY);
-        skyGrad.addColorStop(0, '#030712'); // Upper atmosphere / near space
+        skyGrad.addColorStop(0, '#030712');
         skyGrad.addColorStop(0.4, '#0c4a6e');
         skyGrad.addColorStop(0.8, '#38bdf8');
         skyGrad.addColorStop(1, '#bae6fd');
         ctx.fillStyle = skyGrad;
         ctx.fillRect(0, 0, canvas.width, seaY);
 
-        // 2. OCEAN GRADIENT (Turquoise surface -> Midnight blue -> Abyss black)
         const oceanGrad = ctx.createLinearGradient(0, seaY, 0, canvas.height);
         oceanGrad.addColorStop(0, '#0284c7');
         oceanGrad.addColorStop(0.25, '#0369a1');
@@ -2226,7 +2312,7 @@
         ctx.fillStyle = oceanGrad;
         ctx.fillRect(0, seaY, canvas.width, canvas.height - seaY);
 
-        // Gentle animated waves at surface
+        // Waves
         ctx.strokeStyle = '#ffffff';
         ctx.lineWidth = 1.5;
         ctx.beginPath();
@@ -2237,18 +2323,17 @@
         }
         ctx.stroke();
 
-        // 3. BACKGROUND MOUNTAINS ON LEFT (EVEREST PROFILE)
+        // Mountain on left
         ctx.fillStyle = '#475569';
         ctx.beginPath();
         ctx.moveTo(0, seaY);
         ctx.lineTo(80, seaY - 70);
-        ctx.lineTo(150, seaY - 170); // Peak
+        ctx.lineTo(150, seaY - 170);
         ctx.lineTo(220, seaY - 90);
         ctx.lineTo(300, seaY);
         ctx.closePath();
         ctx.fill();
 
-        // Snow cap
         ctx.fillStyle = '#f8fafc';
         ctx.beginPath();
         ctx.moveTo(150, seaY - 170);
@@ -2258,19 +2343,18 @@
         ctx.closePath();
         ctx.fill();
 
-        // 4. SEA CREATURES / SUBMARINE
-        // Little friendly submarine at depth
+        // Submarine
         ctx.fillStyle = '#f59e0b';
         ctx.beginPath();
         ctx.ellipse(600, seaY + 90, 24, 12, 0, 0, Math.PI * 2);
         ctx.fill();
-        ctx.fillRect(592, seaY + 74, 14, 8); // Conning tower
+        ctx.fillRect(592, seaY + 74, 14, 8);
         ctx.fillStyle = '#38bdf8';
         ctx.beginPath();
-        ctx.arc(614, seaY + 90, 4, 0, Math.PI * 2); // Porthole
+        ctx.arc(614, seaY + 90, 4, 0, Math.PI * 2);
         ctx.fill();
 
-        // Little boat on surface
+        // Boat
         ctx.fillStyle = '#e2e8f0';
         ctx.beginPath();
         ctx.moveTo(380, seaY - 2);
@@ -2280,19 +2364,16 @@
         ctx.closePath();
         ctx.fill();
 
-        // 5. CALCULATE PROBE TARGET POSITION
+        // Probe Target
         let probeY = seaY;
         if (elev > 0) {
-          // Scale 0 to 8848m -> seaY (210) down to y = 30
           probeY = seaY - (Math.min(8848, elev) / 8848) * (seaY - 30);
         } else {
-          // Scale 0 to -200m -> seaY (210) up to canvas.height - 35
           const depth = Math.abs(elev);
           const scaledDepth = Math.min(200, depth);
           probeY = seaY + (scaledDepth / 200) * (canvas.height - 35 - seaY);
         }
 
-        // Draw horizontal measurement dashed guide
         ctx.strokeStyle = elev >= 0 ? '#38bdf8' : '#3b82f6';
         ctx.lineWidth = 1.5;
         ctx.setLineDash([4, 4]);
@@ -2302,8 +2383,7 @@
         ctx.stroke();
         ctx.setLineDash([]);
 
-        // 6. DRAW THE EXPERIMENTAL TEST OBJECT (BALLOON UNDER PRESSURE)
-        // Balloon radius scales inversely with pressure (Boyle's Law: V ~ 1/P -> r ~ (1/P)^(1/3))
+        // Balloon
         const p = calculatePressure(elev);
         const baseRadius = 26;
         const volumeFactor = 1.0 / p.atm;
@@ -2311,7 +2391,6 @@
 
         const probeX = 350;
 
-        // Pressure Sensor Cable from top
         ctx.strokeStyle = '#94a3b8';
         ctx.lineWidth = 2;
         ctx.beginPath();
@@ -2319,7 +2398,6 @@
         ctx.lineTo(probeX, probeY);
         ctx.stroke();
 
-        // Balloon Body
         const balloonGrad = ctx.createRadialGradient(probeX - currentRadius*0.3, probeY - currentRadius*0.3, 2, probeX, probeY, currentRadius);
         balloonGrad.addColorStop(0, '#f472b6');
         balloonGrad.addColorStop(0.7, '#ec4899');
@@ -2332,7 +2410,6 @@
         ctx.lineWidth = 1.5;
         ctx.stroke();
 
-        // Balloon label
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 10px Inter, sans-serif';
         ctx.textAlign = 'center';
@@ -2341,7 +2418,6 @@
         ctx.fillStyle = '#bae6fd';
         ctx.fillText(`Vol: ${(volumeFactor * 100).toFixed(0)}%`, probeX, probeY + currentRadius + 14);
 
-        // Depth Marker Badge at Probe
         ctx.fillStyle = '#0f172a';
         ctx.strokeStyle = '#38bdf8';
         ctx.lineWidth = 2;
@@ -2374,11 +2450,8 @@
         });
       });
 
-      // Initial render
       updatePressureUI(0);
-      drawPressureWorld(0);
 
-      // Animation loop for wave effects
       function animPressure() {
         drawPressureWorld(currentElevation);
         requestAnimationFrame(animPressure);
@@ -2394,7 +2467,6 @@
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
 
-      // Sliders & HUD
       const planeXSlider = document.getElementById('planeXSlider');
       const planeMslSlider = document.getElementById('planeMslSlider');
       const planeXLabel = document.getElementById('planeXPosLabel');
@@ -2406,40 +2478,28 @@
       const autoPilotBtn = document.getElementById('flightAutoPilotBtn');
 
       let planeX = 380;
-      let flightAltMsl = 2500; // meters MSL
+      let flightAltMsl = 2500;
       let isAutoPilot = false;
 
-      // World geometry
-      // Canvas height: 420.
-      // Sea level is at ground bottom: y = 370 (0 meters MSL)
       const seaLevelY = 370;
-      const maxAltScaleM = 4000; // 4000 meters = (seaLevelY - 40) = 330 pixels
+      const maxAltScaleM = 4000;
       const pxPerMeterY = 320 / maxAltScaleM;
 
-      // Realistic Terrain Profile elevation function (returns elevation in meters)
       function getTerrainElevation(x) {
-        // x goes from 0 to 800
-        if (x < 150) {
-          // Ocean surface
-          return 0;
-        } else if (x < 250) {
-          // Coastline rising to coastal plain
+        if (x < 150) return 0;
+        else if (x < 250) {
           const t = (x - 150) / 100;
           return t * 150;
         } else if (x < 420) {
-          // Elevated plateau / valley
           const t = (x - 250) / 170;
           return 150 + Math.sin(t * Math.PI) * 500;
         } else if (x < 580) {
-          // High mountain peak (Everest / Rockies peak)
           const t = (x - 420) / 160;
-          return 400 + Math.sin(t * Math.PI) * 2000; // Peak reaches 2,400m
+          return 400 + Math.sin(t * Math.PI) * 2000;
         } else if (x < 680) {
-          // Mountain descent
           const t = (x - 580) / 100;
-          return 2400 - t * 1400; // Descends to 1000m
+          return 2400 - t * 1400;
         } else {
-          // Elevated airport plateau at 1,000m
           return 1000;
         }
       }
@@ -2458,23 +2518,21 @@
         else if (planeX < 600) planeXLabel.textContent = "Sobre la Cordillera";
         else planeXLabel.textContent = "Aproximación Pista";
 
-        // Proximity warning (GPWS)
         if (aglM <= 150) {
           warningBanner.classList.remove('hidden');
-          hudAgl.className = "font-bold text-rose-400 text-sm";
+          hudAgl.className = "font-bold text-rose-400 text-xs sm:text-sm tabular-nums w-44 text-right";
         } else if (aglM <= 400) {
           warningBanner.classList.add('hidden');
-          hudAgl.className = "font-bold text-amber-400 text-sm";
+          hudAgl.className = "font-bold text-amber-400 text-xs sm:text-sm tabular-nums w-44 text-right";
         } else {
           warningBanner.classList.add('hidden');
-          hudAgl.className = "font-bold text-emerald-300 text-sm";
+          hudAgl.className = "font-bold text-emerald-300 text-xs sm:text-sm tabular-nums w-44 text-right";
         }
       }
 
       function drawAltitudeScene() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // 1. SKY BACKGROUND
         const sky = ctx.createLinearGradient(0, 0, 0, seaLevelY);
         sky.addColorStop(0, '#0284c7');
         sky.addColorStop(0.7, '#38bdf8');
@@ -2482,7 +2540,6 @@
         ctx.fillStyle = sky;
         ctx.fillRect(0, 0, canvas.width, seaLevelY);
 
-        // 2. TERRAIN PROFILE
         ctx.beginPath();
         ctx.moveTo(0, seaLevelY);
         for (let x = 0; x <= canvas.width; x += 4) {
@@ -2494,7 +2551,6 @@
         ctx.lineTo(0, canvas.height);
         ctx.closePath();
 
-        // Mountain ground gradient
         const groundGrad = ctx.createLinearGradient(0, 100, 0, canvas.height);
         groundGrad.addColorStop(0, '#334155');
         groundGrad.addColorStop(0.4, '#1e293b');
@@ -2505,7 +2561,7 @@
         ctx.lineWidth = 3;
         ctx.stroke();
 
-        // Snow on high peaks (x between 450 and 550)
+        // Snow on high peaks
         ctx.fillStyle = '#f8fafc';
         ctx.beginPath();
         for (let x = 460; x <= 540; x += 4) {
@@ -2521,11 +2577,10 @@
         ctx.closePath();
         ctx.fill();
 
-        // Ocean on left
         ctx.fillStyle = '#0284c7';
         ctx.fillRect(0, seaLevelY - 4, 150, canvas.height - seaLevelY + 4);
 
-        // Airport Runway on elevated plateau (x: 700 to 780)
+        // Runway
         ctx.fillStyle = '#475569';
         const rY = seaLevelY - 1000 * pxPerMeterY;
         ctx.fillRect(700, rY - 4, 90, 8);
@@ -2537,7 +2592,7 @@
         ctx.stroke();
         ctx.setLineDash([]);
 
-        // 3. DATUM REFERENCE LINE: MEAN SEA LEVEL (MSL = 0m)
+        // MSL Line
         ctx.strokeStyle = '#2563eb';
         ctx.lineWidth = 2.5;
         ctx.setLineDash([8, 6]);
@@ -2551,18 +2606,17 @@
         ctx.font = 'bold 11px JetBrains Mono';
         ctx.fillText('Nivel Medio del Mar (MSL = 0m)', 12, seaLevelY - 8);
 
-        // 4. AIRPLANE KINEMATICS & MEASUREMENT BRACKETS
+        // Airplane
         const planeY = seaLevelY - flightAltMsl * pxPerMeterY;
         const groundUnderPlaneY = seaLevelY - getTerrainElevation(planeX) * pxPerMeterY;
 
-        // A) MSL ALTITUDE LINE (Yellow bracket: from seaLevelY to planeY)
+        // Brackets
         ctx.strokeStyle = '#f59e0b';
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.moveTo(planeX - 35, seaLevelY);
         ctx.lineTo(planeX - 35, planeY);
         ctx.stroke();
-        // Bracket caps
         ctx.beginPath();
         ctx.moveTo(planeX - 42, seaLevelY);
         ctx.lineTo(planeX - 28, seaLevelY);
@@ -2575,14 +2629,12 @@
         ctx.textAlign = 'right';
         ctx.fillText(`Altitud (MSL): ${flightAltMsl}m`, planeX - 42, (planeY + seaLevelY) / 2);
 
-        // B) AGL HEIGHT LINE (Purple/Magenta bracket: from ground directly below to planeY)
         ctx.strokeStyle = '#ec4899';
         ctx.lineWidth = 2.5;
         ctx.beginPath();
         ctx.moveTo(planeX + 35, groundUnderPlaneY);
         ctx.lineTo(planeX + 35, planeY);
         ctx.stroke();
-        // Bracket caps
         ctx.beginPath();
         ctx.moveTo(planeX + 28, groundUnderPlaneY);
         ctx.lineTo(planeX + 42, groundUnderPlaneY);
@@ -2596,7 +2648,6 @@
         const aglM = Math.round(flightAltMsl - getTerrainElevation(planeX));
         ctx.fillText(`Altura (AGL): ${aglM}m`, planeX + 45, (planeY + groundUnderPlaneY) / 2);
 
-        // C) TERRAIN ELEVATION LINE (Green bracket: from seaLevelY to groundUnderPlaneY)
         if (getTerrainElevation(planeX) > 50) {
           ctx.strokeStyle = '#10b981';
           ctx.lineWidth = 1.5;
@@ -2608,11 +2659,10 @@
           ctx.setLineDash([]);
         }
 
-        // 5. DRAW THE AIRPLANE ICON / SHAPE
+        // Airplane Model
         ctx.save();
         ctx.translate(planeX, planeY);
 
-        // Fuselage
         ctx.fillStyle = '#f8fafc';
         ctx.beginPath();
         ctx.ellipse(0, 0, 22, 6, 0, 0, Math.PI * 2);
@@ -2621,7 +2671,6 @@
         ctx.lineWidth = 1.5;
         ctx.stroke();
 
-        // Wings
         ctx.fillStyle = '#38bdf8';
         ctx.beginPath();
         ctx.moveTo(-6, -14);
@@ -2631,7 +2680,6 @@
         ctx.closePath();
         ctx.fill();
 
-        // Tail vertical fin
         ctx.fillStyle = '#f97316';
         ctx.beginPath();
         ctx.moveTo(-16, 0);
@@ -2641,7 +2689,6 @@
         ctx.closePath();
         ctx.fill();
 
-        // Jet thrust particle
         ctx.fillStyle = '#fbbf24';
         ctx.beginPath();
         ctx.arc(-24, 0, 3 + Math.random() * 2, 0, Math.PI * 2);
@@ -2696,30 +2743,401 @@
     })();
 
     /* ========================================================================= */
-    /* 5. INTERACTIVE QUIZ LOGIC                                                 */
+    /* 5. FLUJO LAMINAR VS. TURBULENTO SIMULATION                                */
     /* ========================================================================= */
-    document.querySelectorAll('.quiz-btn').forEach(button => {
-      button.addEventListener('click', function() {
-        const parent = this.closest('.space-y-3');
-        const feedback = parent.querySelector('.quiz-feedback');
-        const isCorrect = this.dataset.correct === "true";
+    (function initLaminarFlow() {
+      const canvas = document.getElementById('laminarCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
 
-        // Reset styling for sibling options
-        parent.querySelectorAll('.quiz-btn').forEach(btn => {
-          btn.className = "quiz-btn w-full p-2.5 rounded-xl border border-slate-700 bg-slate-800/50 text-left text-slate-400";
+      // State
+      let mode = 'tunnel'; // 'tunnel' or 'jet'
+      let reynolds = 1200; // Reynolds number
+      let fluidViscosity = 1.0; // mPa.s
+      let fluidName = "Agua Dulce";
+      let disturbanceTime = 0; // for jet disturbance touch
+
+      // UI
+      const tunnelBtn = document.getElementById('laminarModeTunnelBtn');
+      const jetBtn = document.getElementById('laminarModeJetBtn');
+      const regimeBadge = document.getElementById('reynoldsRegimeBadge');
+      const reynoldsSlider = document.getElementById('reynoldsSlider');
+      const reynoldsSliderLabel = document.getElementById('reynoldsSliderLabel');
+      const hudReynolds = document.getElementById('hudReynoldsNumber');
+      const hudViscosity = document.getElementById('hudFluidViscosity');
+      const hudDrag = document.getElementById('hudDragCoeff');
+      const injectDyeBtn = document.getElementById('injectDyeBtn');
+      const touchJetBtnContainer = document.getElementById('touchJetBtnContainer');
+      const touchJetBtn = document.getElementById('touchJetBtn');
+
+      // Flow particles
+      const particles = [];
+      const numParticles = 180;
+      for (let i = 0; i < numParticles; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: 0,
+          vy: 0,
+          color: Math.random() > 0.5 ? '#2dd4bf' : '#38bdf8',
+          size: Math.random() * 2 + 1.5,
+          streamIndex: Math.floor(Math.random() * 8)
         });
+      }
 
-        if (isCorrect) {
-          this.className = "quiz-btn w-full p-2.5 rounded-xl border border-emerald-500 bg-emerald-500/20 text-left text-emerald-300 font-bold";
-          feedback.textContent = "✅ ¡Correcto! Excelente deducción física.";
-          feedback.className = "quiz-feedback text-[11px] font-semibold mt-2 text-emerald-400 block";
+      // Streamline dye tracers (colored bands)
+      const dyeStreams = [
+        { y: 130, color: '#f43f5e' },
+        { y: 175, color: '#38bdf8' },
+        { y: 210, color: '#2dd4bf' },
+        { y: 245, color: '#eab308' },
+        { y: 290, color: '#a855f7' }
+      ];
+
+      function updateRegimeBadge(re) {
+        hudReynolds.textContent = `Re = ${Math.round(re)}`;
+        reynoldsSliderLabel.textContent = `Re = ${Math.round(re)}`;
+        
+        // Approximate drag coefficient
+        let cd = 0.42;
+        if (re < 2000) {
+          cd = (24 / Math.max(1, re * 0.05)).toFixed(2);
+          regimeBadge.textContent = "Laminar puro";
+          regimeBadge.className = "w-32 text-center py-1 rounded-md bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30 inline-block tabular-nums";
+        } else if (re < 4000) {
+          cd = "0.45";
+          regimeBadge.textContent = "Transición";
+          regimeBadge.className = "w-32 text-center py-1 rounded-md bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30 inline-block tabular-nums";
         } else {
-          this.className = "quiz-btn w-full p-2.5 rounded-xl border border-rose-500 bg-rose-500/20 text-left text-rose-300 font-bold";
-          feedback.textContent = "❌ Incorrecto. Revisa la sección explicativa correspondiente.";
-          feedback.className = "quiz-feedback text-[11px] font-semibold mt-2 text-rose-400 block";
+          cd = (0.5 + (re / 10000) * 0.6).toFixed(2);
+          regimeBadge.textContent = "Turbulento";
+          regimeBadge.className = "w-32 text-center py-1 rounded-md bg-rose-500/20 text-rose-300 font-bold border border-rose-500/30 inline-block tabular-nums";
+        }
+        hudDrag.textContent = cd;
+      }
+
+      tunnelBtn.addEventListener('click', () => {
+        mode = 'tunnel';
+        tunnelBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition bg-teal-500 text-slate-950 shadow";
+        jetBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white";
+        touchJetBtnContainer.classList.add('hidden');
+      });
+
+      jetBtn.addEventListener('click', () => {
+        mode = 'jet';
+        jetBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition bg-teal-500 text-slate-950 shadow";
+        tunnelBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white";
+        touchJetBtnContainer.classList.remove('hidden');
+      });
+
+      reynoldsSlider.addEventListener('input', (e) => {
+        reynolds = parseFloat(e.target.value);
+        updateRegimeBadge(reynolds);
+      });
+
+      document.querySelectorAll('.fluid-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.fluid-btn').forEach(b => {
+            b.className = "fluid-btn px-2.5 py-1 rounded-lg text-xs bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition";
+          });
+          btn.className = "fluid-btn px-2.5 py-1 rounded-lg text-xs bg-teal-500/20 border border-teal-500/40 text-teal-300 font-bold transition";
+          fluidViscosity = parseFloat(btn.dataset.visc);
+          fluidName = btn.dataset.name;
+          hudViscosity.textContent = `${fluidViscosity} mPa·s`;
+
+          // Adjust Reynolds according to viscosity Re ~ 1 / mu
+          if (fluidViscosity > 100) reynolds = 250; // Glycerin is strongly laminar
+          else if (fluidViscosity > 50) reynolds = 800;
+          else if (fluidViscosity < 0.1) reynolds = 4800; // Air is turbulent easily
+          else reynolds = 1200;
+
+          reynoldsSlider.value = reynolds;
+          updateRegimeBadge(reynolds);
+        });
+      });
+
+      injectDyeBtn.addEventListener('click', () => {
+        for (let i = 0; i < 35; i++) {
+          particles.push({
+            x: 10,
+            y: 100 + Math.random() * 220,
+            vx: 0,
+            vy: 0,
+            color: ['#f43f5e', '#a855f7', '#eab308', '#2dd4bf'][Math.floor(Math.random() * 4)],
+            size: 3.5,
+            streamIndex: Math.floor(Math.random() * 5)
+          });
         }
       });
-    });
+
+      touchJetBtn.addEventListener('click', () => {
+        disturbanceTime = 1.8; // Trigger 1.8s of violent disturbance
+      });
+
+      let simTime = 0;
+
+      function drawLaminarSimulation() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        simTime += 0.02;
+
+        if (disturbanceTime > 0) disturbanceTime -= 0.02;
+
+        if (mode === 'tunnel') {
+          // ================= MODE 1: HYDRODYNAMIC TUNNEL WITH CYLINDER =================
+          // Background channel
+          ctx.fillStyle = '#020617';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          // Walls (top and bottom)
+          ctx.fillStyle = '#1e293b';
+          ctx.fillRect(0, 0, canvas.width, 24);
+          ctx.fillRect(0, canvas.height - 24, canvas.width, 24);
+          ctx.strokeStyle = '#334155';
+          ctx.lineWidth = 2;
+          ctx.strokeRect(0, 0, canvas.width, 24);
+          ctx.strokeRect(0, canvas.height - 24, canvas.width, 24);
+
+          // Obstacle: Cylinder in the flow at (280, 210)
+          const obsX = 280;
+          const obsY = 210;
+          const obsR = 34;
+
+          const isTurbulent = reynolds > 3500;
+          const turbulenceFactor = Math.max(0, (reynolds - 2200) / 4000);
+
+          // Draw Streamlines across the channel
+          dyeStreams.forEach(stream => {
+            ctx.strokeStyle = stream.color;
+            ctx.lineWidth = 2;
+            ctx.globalAlpha = 0.75;
+            ctx.beginPath();
+
+            for (let x = 0; x <= canvas.width; x += 10) {
+              let y = stream.y;
+              const distToObs = Math.hypot(x - obsX, y - obsY);
+
+              // Fluid deflection around obstacle (Potential / Stokes flow)
+              if (distToObs < obsR + 80) {
+                const dy = y - obsY;
+                const sign = dy >= 0 ? 1 : -1;
+                const push = (1 - (distToObs / (obsR + 80))) * 38 * sign;
+                y += push;
+              }
+
+              // In wake of cylinder (x > obsX)
+              if (x > obsX + obsR) {
+                const wakeX = x - (obsX + obsR);
+                if (turbulenceFactor > 0.05) {
+                  // Von Kármán vortex street: alternating sinusoidal eddies
+                  const vortexFreq = 0.04;
+                  const vortexAmp = Math.min(45, wakeX * 0.18 * turbulenceFactor);
+                  const eddy = Math.sin(wakeX * vortexFreq - simTime * 6) * vortexAmp;
+                  // Alternate swirl based on stream position
+                  y += eddy * (stream.y > obsY ? 1 : -1);
+                }
+              }
+
+              if (x === 0) ctx.moveTo(x, y);
+              else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+          });
+          ctx.globalAlpha = 1.0;
+
+          // Draw and advance fluid particles
+          const baseSpeed = 2.5 + (reynolds / 2000) * 2;
+          particles.forEach(p => {
+            const dist = Math.hypot(p.x - obsX, p.y - obsY);
+
+            let vx = baseSpeed;
+            let vy = 0;
+
+            if (dist < obsR + 60) {
+              const sign = p.y >= obsY ? 1 : -1;
+              vy = ((obsR + 60 - dist) / 60) * 3 * sign;
+            }
+
+            // Turbulent vortex generation in wake
+            if (p.x > obsX + obsR && turbulenceFactor > 0.05) {
+              const wakeX = p.x - (obsX + obsR);
+              const eddy = Math.sin(wakeX * 0.05 - simTime * 7) * 2.5 * turbulenceFactor;
+              vy += eddy;
+              vx += (Math.random() - 0.5) * 1.5 * turbulenceFactor;
+            }
+
+            p.x += vx;
+            p.y += vy;
+
+            // Reset loop
+            if (p.x > canvas.width) {
+              p.x = 0;
+              p.y = 30 + Math.random() * (canvas.height - 60);
+            }
+
+            // Draw particle
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+          });
+
+          // Draw the physical Obstacle Cylinder
+          const cylGrad = ctx.createRadialGradient(obsX - 10, obsY - 10, 5, obsX, obsY, obsR);
+          cylGrad.addColorStop(0, '#94a3b8');
+          cylGrad.addColorStop(0.7, '#475569');
+          cylGrad.addColorStop(1, '#0f172a');
+          ctx.fillStyle = cylGrad;
+          ctx.beginPath();
+          ctx.arc(obsX, obsY, obsR, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.strokeStyle = '#cbd5e1';
+          ctx.lineWidth = 2.5;
+          ctx.stroke();
+
+          // Obstacle label
+          ctx.fillStyle = '#f8fafc';
+          ctx.font = 'bold 10px JetBrains Mono';
+          ctx.textAlign = 'center';
+          ctx.fillText('Cilindro', obsX, obsY + 3);
+
+          if (isTurbulent) {
+            ctx.fillStyle = '#f43f5e';
+            ctx.font = 'bold 11px JetBrains Mono';
+            ctx.fillText('Vórtices de Von Kármán', obsX + 160, obsY - obsR - 15);
+          } else {
+            ctx.fillStyle = '#2dd4bf';
+            ctx.font = 'bold 11px JetBrains Mono';
+            ctx.fillText('Flujo Laminar (Capas Paralelas)', obsX + 160, obsY - obsR - 15);
+          }
+
+        } else {
+          // ================= MODE 2: LAMINAR JET ("AGUA CONGELADA / VIDRIO") =================
+          ctx.fillStyle = '#020617';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          // Water supply tank on left
+          ctx.fillStyle = '#0f172a';
+          ctx.fillRect(0, 40, 160, canvas.height - 80);
+          ctx.strokeStyle = '#38bdf8';
+          ctx.lineWidth = 3;
+          ctx.strokeRect(0, 40, 160, canvas.height - 80);
+
+          // Tank water fill
+          const tankGrad = ctx.createLinearGradient(0, 40, 0, canvas.height - 40);
+          tankGrad.addColorStop(0, '#0284c7');
+          tankGrad.addColorStop(1, '#0369a1');
+          ctx.fillStyle = tankGrad;
+          ctx.fillRect(2, 42, 156, canvas.height - 84);
+
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 12px Inter';
+          ctx.textAlign = 'center';
+          ctx.fillText('Tanque / Globo', 80, 100);
+          ctx.font = '10px JetBrains Mono';
+          ctx.fillStyle = '#bae6fd';
+          ctx.fillText('Presión Constante', 80, 120);
+
+          // Nozzle orifice at (160, 210)
+          const nozY = 210;
+          const jetH = 26;
+
+          ctx.fillStyle = '#475569';
+          ctx.fillRect(155, nozY - jetH/2 - 6, 15, 6);
+          ctx.fillRect(155, nozY + jetH/2, 15, 6);
+
+          // Draw the Water Stream
+          const isDisturbed = (disturbanceTime > 0) || (reynolds > 3200);
+
+          if (!isDisturbed) {
+            // ULTRA LAMINAR: Perfectly glassy, stationary, parabolic cylindrical water rod
+            ctx.save();
+            // Glassy water gradient
+            const waterGrad = ctx.createLinearGradient(160, nozY - jetH/2, 160, nozY + jetH/2);
+            waterGrad.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
+            waterGrad.addColorStop(0.3, 'rgba(56, 189, 248, 0.7)');
+            waterGrad.addColorStop(0.7, 'rgba(14, 165, 233, 0.85)');
+            waterGrad.addColorStop(1, 'rgba(255, 255, 255, 0.6)');
+            ctx.fillStyle = waterGrad;
+
+            ctx.beginPath();
+            ctx.moveTo(160, nozY - jetH/2);
+            for (let x = 160; x <= 650; x += 10) {
+              const dx = x - 160;
+              const drop = 0.0006 * dx * dx; // Parabolic gravity fall
+              ctx.lineTo(x, nozY - jetH/2 + drop);
+            }
+            for (let x = 650; x >= 160; x -= 10) {
+              const dx = x - 160;
+              const drop = 0.0006 * dx * dx;
+              ctx.lineTo(x, nozY + jetH/2 + drop);
+            }
+            ctx.closePath();
+            ctx.fill();
+
+            // Glass specular reflection line
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            for (let x = 160; x <= 650; x += 10) {
+              const dx = x - 160;
+              const drop = 0.0006 * dx * dx;
+              if (x === 160) ctx.moveTo(x, nozY - 4 + drop);
+              else ctx.lineTo(x, nozY - 4 + drop);
+            }
+            ctx.stroke();
+            ctx.restore();
+
+            // Badge annotation
+            ctx.fillStyle = '#2dd4bf';
+            ctx.font = 'bold 12px JetBrains Mono';
+            ctx.textAlign = 'center';
+            ctx.fillText('✨ Efecto "Agua Congelada": El agua parece un tubo sólido de cristal inmóvil', 420, 140);
+
+          } else {
+            // TURBULENT OR DISTURBED: Spray, ripples, chaotic droplets
+            ctx.save();
+            ctx.fillStyle = 'rgba(56, 189, 248, 0.7)';
+            ctx.beginPath();
+            ctx.moveTo(160, nozY - jetH/2);
+            for (let x = 160; x <= 650; x += 8) {
+              const dx = x - 160;
+              const drop = 0.0006 * dx * dx;
+              const wave = Math.sin(dx * 0.1 - simTime * 15) * (dx * 0.05);
+              ctx.lineTo(x, nozY - jetH/2 + drop + wave);
+            }
+            for (let x = 650; x >= 160; x -= 8) {
+              const dx = x - 160;
+              const drop = 0.0006 * dx * dx;
+              const wave = Math.cos(dx * 0.1 - simTime * 15) * (dx * 0.05);
+              ctx.lineTo(x, nozY + jetH/2 + drop + wave);
+            }
+            ctx.closePath();
+            ctx.fill();
+
+            // Droplet splatters
+            ctx.fillStyle = '#38bdf8';
+            for (let d = 0; d < 22; d++) {
+              const spX = 350 + Math.random() * 300;
+              const spY = nozY + 0.0006 * (spX - 160)**2 + (Math.random() * 40 - 20);
+              ctx.beginPath();
+              ctx.arc(spX, spY, Math.random() * 3 + 1, 0, Math.PI * 2);
+              ctx.fill();
+            }
+            ctx.restore();
+
+            ctx.fillStyle = '#f43f5e';
+            ctx.font = 'bold 12px JetBrains Mono';
+            ctx.textAlign = 'center';
+            ctx.fillText('💥 Flujo Turbulento: La perturbación desata gotas, caos y ruptura de capas', 420, 140);
+          }
+        }
+
+        requestAnimationFrame(drawLaminarSimulation);
+      }
+
+      updateRegimeBadge(reynolds);
+      requestAnimationFrame(drawLaminarSimulation);
+    })();
   </script>
 </body>
 </html>
